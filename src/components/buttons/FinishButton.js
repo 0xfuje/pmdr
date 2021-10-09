@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyledFinishButton } from './styled/StyledFinishButton';
-import forward from '../images/icons/step-forward-solid.svg';
+import { StyledFinishButton } from '../styled/buttons/StyledFinishButton';
+import forward from '../../images/icons/step-forward-solid.svg';
 
 function FinishButton() {
     return (

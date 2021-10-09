@@ -42,9 +42,20 @@ const theme = {
         font: {
             light: colors.monochrome.light1,
             lightGrey: colors.monochrome.light2,
+            lightGrey2: colors.monochrome.grey1,
             grey: colors.monochrome.grey3,
             darkGrey: colors.monochrome.grey4,
             dark: colors.monochrome.dark1,
+        },
+        mono: {
+            light1: '#E9ECEF',
+            light2: '#CED4DA',
+            grey1: '#ADB5BD',
+            grey2: '#8B9299',
+            grey3: '#6C757D',
+            grey4: '#495057',
+            dark1: '#343A40',
+            dark2: '#212529',
         }
     },
     fonts: ['Titillium Web', 'sans-serif'],
@@ -55,13 +66,14 @@ const theme = {
         large: '1.5rem',
         giant: '6rem'
     },
+    fontWeights: {
+        normal: 400,
+        medium: 600
+    },
     width: {
         container: '460px',
         header: '960px'
     },
-    button: {
-        padding: '0.5rem 1rem',
-    }
 }
 
 const Theme = ({ children }) => (

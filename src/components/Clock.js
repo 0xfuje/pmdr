@@ -9,4 +9,4 @@ function Clock(props) {
     )
 }
 
-export default Clock
+export default Clock;

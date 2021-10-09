@@ -1,12 +1,13 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap');
 
 body { 
   font-family: 'Titillium Web', sans-serif;
   background-color: ${({theme}) => theme.colors.main.normal};
-  font-weight: 600;
+  font-weight: 400;
+  font-size: ${({theme}) => theme.fontSizes.small};
 }
 
 

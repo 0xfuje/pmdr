@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledHeader } from './styled/StyledHeader';
-import Button from './Button';
+import Button from './buttons/Button';
 import { StyledProgressLine } from './styled/StyledProgressLine';
 
 function Header() {
@@ -11,16 +11,16 @@ function Header() {
             <div className="Header-navigation">
                 <ul className='Header-list'>
                     <li className='Header-list-item'>
-                        <Button active={true} text='Timer'/>
+                        <Button type={'active'} text='Timer'/>
                     </li>
                     <li className='Header-list-item'>
-                        <Button active={false} text='Log'/>
+                        <Button type={'normal'} text='Log'/>
                     </li>
                     <li className='Header-list-item'>
-                        <Button active={false} text='Projects'/>
+                        <Button type={'normal'} text='Projects'/>
                     </li>
                     <li className='Header-list-item'>
-                        <Button active={false} text='Settings'/>
+                        <Button type={'normal'} text='Settings'/>
                     </li>
                 </ul>
             </div>
