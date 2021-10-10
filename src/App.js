@@ -2,13 +2,13 @@
 import React from 'react';
 import { Container } from './components/styled/StyledContainer';
 import GlobalStyles from './components/styled/GlobalStyles';
+import { TasksProvider } from './context/tasks.context';
 
 import Theme from './Theme';
 import Header from './components/Header';
 import Timer from './components/Timer';
 import CurrentTask from './components/CurrentTask';
-import Task from './components/Task';
-import TaskEdit from './components/TaskEdit';
+import Tasks from './components/Tasks';
 
 
 function App() {
@@ -17,10 +17,11 @@ function App() {
       <GlobalStyles />
       <Header />
     <Container>
-      <Timer />
+    <TasksProvider>
+      <Timer isCounting={true} />
       <CurrentTask num={2} title={'PMDR - Making Styled Compents Skeleton'}/>
-      <Task title='Making Shit Happen' pmdrs={[2, 6]}/>
-      <TaskEdit title='Designing Pomodoro Timer' />
+      <Tasks  />
+    </TasksProvider>
     </Container>
     </Theme>
   )

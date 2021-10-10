@@ -11,7 +11,7 @@ function TaskEdit(props) {
             <div className='TaskEdit-pmdr'>
                 <h2 className='TaskEdit-pmdr-title'>Estimated pomodoros</h2>
                 <div className='TaskEdit-pmdr-input'>
-                    <input type='number'  className='TaskEdit-pmdr-numInput'/>
+                    <input type='number' className='TaskEdit-pmdr-numInput'/>
                     <Icon alt='Add pmdr' type={'caret-up'} />
                     <Icon alt='Add pmdr' type={'caret-down'} />
                 </div>

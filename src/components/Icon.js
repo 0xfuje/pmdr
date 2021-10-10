@@ -5,6 +5,7 @@ import settingsWhite from '../images/icons/ellipsis-v-solid-white.svg';
 import caretUp from '../images/icons/caret-up-solid.svg';
 import caretDown from '../images/icons/caret-down-solid.svg';
 
+
 function Icon(props) {
     let source;
     if (props.type === 'settings-normal') source = settings;

@@ -6,6 +6,7 @@ import GiantButton from './buttons/GiantButton';
 import FinishButton from './buttons/FinishButton';
 
 function Timer(props) {
+
     return (
         <StyledTimer className='Timer'>
             <div className="Timer-buttons">
@@ -14,8 +15,8 @@ function Timer(props) {
             </div>
             <Clock time={'12:42'} />
             <div className="Timer-controll">
-                <GiantButton text='stop' />
-                <FinishButton />
+                <GiantButton text={props.isCounting ? 'stop' : 'start'} />
+               {props.isCounting ? <FinishButton /> : ''}
             </div>
         </StyledTimer>
     )

@@ -6,7 +6,7 @@ export const StyledTaskEdit = styled.div`
     margin: 0.75rem auto;
     .TaskEdit {
         &-main {
-            padding: 1.5rem 2rem 0.5rem;
+            padding: 1.5rem 1.5rem 0.5rem;
         }
         &-title {
             font-size: ${({theme}) => theme.fontSizes.large};

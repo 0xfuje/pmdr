@@ -4,7 +4,7 @@ export const StyledButton = styled.button`
     // types: normal, active, dark, underlined, text
     padding: ${(props) =>
     (props.type === 'normal' || props.type === 'active' || props.type === 'dark')
-    ? '0.5rem 1rem'
+    ? '0.375rem 0.75rem'
     : ''};
     background-color: ${(props) => {
         if (props.type === 'normal') return ({theme}) => theme.colors.main.light;

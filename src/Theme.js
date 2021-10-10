@@ -62,8 +62,8 @@ const theme = {
     fontSizes: {
         tiny: '0.75rem',
         small: '0.875rem',
-        medium: '1.125rem',
-        large: '1.5rem',
+        medium: '1rem',
+        large: '1.25rem',
         giant: '6rem'
     },
     fontWeights: {
