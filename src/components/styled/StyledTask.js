@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 export const StyledTask = styled.div`
-    ${(props) => console.log(props.isActive)}
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     padding: 1rem;
     background-color: ${({theme}) => theme.colors.mono.light1};
     border-radius: 0.2rem;
@@ -12,16 +11,22 @@ export const StyledTask = styled.div`
     cursor: pointer;
     border-left: 0.5rem solid;
     border-color: ${(props) => (props.isActive)
-        ? ({theme}) => theme.colors.mono.grey3
+        ? ({theme}) => theme.colors.mono.grey4
         : ({theme}) => theme.colors.mono.light1
     };
     &:hover {
         border-color: ${(props) => (props.isActive)
-        ? ({theme}) => theme.colors.mono.grey3
+        ? ({theme}) => theme.colors.mono.grey4
         : ({theme}) => theme.colors.mono.grey1
         };
     };
     .Task {
+        &-flex {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
         &-title {
             color: ${({theme}) => theme.colors.mono.dark1};
             font-size: ${({theme}) => theme.fontSizes.medium};
@@ -34,11 +39,6 @@ export const StyledTask = styled.div`
                 font-size: ${({theme}) => theme.fontSizes.large};
                 
             }
-        }
-        &-right {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
         }
         
     }

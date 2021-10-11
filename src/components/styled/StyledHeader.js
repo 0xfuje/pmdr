@@ -24,5 +24,12 @@ export const StyledHeader = styled.header`
         }
     }
     }
+    .active {
+        .Button {
+            color: ${({theme}) => theme.colors.mono.light1};
+            background-color: ${({theme}) => theme.colors.main.dark};
+            font-weight: ${({theme}) => theme.fontWeights.medium};
+        }
+    }
     
 `;

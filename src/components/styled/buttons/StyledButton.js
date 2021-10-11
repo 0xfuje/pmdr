@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledButton = styled.button`
     // types: normal, active, dark, underlined, text
     padding: ${(props) =>
-    (props.type === 'normal' || props.type === 'active' || props.type === 'dark')
+    (props.type === 'normal' || props.type === 'dark' || props.type === 'active')
     ? '0.375rem 0.75rem'
     : ''};
     background-color: ${(props) => {
@@ -13,8 +13,7 @@ export const StyledButton = styled.button`
         else { return 'inherit' }
     }};
     color: ${(props) => {
-        if (props.type === 'normal') return ({theme}) => theme.colors.mono.light1;
-        if (props.type === 'active') return ({theme}) => theme.colors.mono.light1;
+        if (props.type === 'normal' || props.type === 'active') return ({theme}) => theme.colors.mono.light1;
         if (props.type === 'dark') return ({theme}) => theme.colors.mono.light1;
         if (props.type === 'text' || props.type === 'underline') return ({theme}) => theme.colors.mono.dark1;
     }};
@@ -28,4 +27,7 @@ export const StyledButton = styled.button`
     border: none;
     border-radius: 0.2rem;
     cursor: pointer;
+    &:hover {
+        ${({theme}) => theme.fontSizes.medium};
+    }
 `;

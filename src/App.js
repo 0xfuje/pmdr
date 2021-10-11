@@ -1,15 +1,15 @@
-
 import React from 'react';
+import Main from './Main';
+import Log from './Log';
+import { Switch, Route } from 'react-router-dom';
+
 import { Container } from './components/styled/StyledContainer';
 import GlobalStyles from './components/styled/GlobalStyles';
-import { TasksProvider } from './context/tasks.context';
+
+
 
 import Theme from './Theme';
 import Header from './components/Header';
-import Timer from './components/Timer';
-import CurrentTask from './components/CurrentTask';
-import Tasks from './components/Tasks';
-
 
 function App() {
   return (
@@ -17,11 +17,14 @@ function App() {
       <GlobalStyles />
       <Header />
     <Container>
-    <TasksProvider>
-      <Timer isCounting={true} />
-      <CurrentTask num={2} title={'PMDR - Making Styled Compents Skeleton'}/>
-      <Tasks  />
-    </TasksProvider>
+      <Switch>
+        <Route exact path='log'>
+          <Log />
+        </Route>
+        <Route exact path='/' >
+          <Main />
+        </Route>
+      </Switch>
     </Container>
     </Theme>
   )

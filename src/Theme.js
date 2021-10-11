@@ -1,6 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
 import { ThemeProvider } from "styled-components";
-
 
 
 const colors = {
@@ -32,20 +31,14 @@ const colors = {
     
 }
 
+
 const theme = {
     colors: {
         main: {
+            active: 'red',
             light: colors.red.light,
             normal: colors.red.normal,
             dark: colors.red.dark,
-        },
-        font: {
-            light: colors.monochrome.light1,
-            lightGrey: colors.monochrome.light2,
-            lightGrey2: colors.monochrome.grey1,
-            grey: colors.monochrome.grey3,
-            darkGrey: colors.monochrome.grey4,
-            dark: colors.monochrome.dark1,
         },
         mono: {
             light1: '#E9ECEF',
@@ -56,7 +49,8 @@ const theme = {
             grey4: '#495057',
             dark1: '#343A40',
             dark2: '#212529',
-        }
+        },
+        
     },
     fonts: ['Titillium Web', 'sans-serif'],
     fontSizes: {
@@ -75,6 +69,15 @@ const theme = {
         header: '960px'
     },
 }
+
+
+export const changeTheme = (activeColor) => {
+    theme.colors.main.active = activeColor;
+    theme.colors.main.light = colors[activeColor].light;
+    theme.colors.main.normal = colors[activeColor].normal;
+    theme.colors.main.dark = colors[activeColor].dark;
+}
+changeTheme('blue');
 
 const Theme = ({ children }) => (
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
