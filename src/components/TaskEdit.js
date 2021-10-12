@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {StyledTaskEdit} from './styled/StyledTaskEdit';
 import Icon from './Icon';
 import Button from './buttons/Button';
+import { TasksContext } from '../context/tasks.context';
 
 function TaskEdit(props) {
+    const { taskDispatch } = useContext(TasksContext);
+    const handleDeleteClick = () => {
+        taskDispatch({ type: 'DELETE', payload: { id: props.id }});
+    }
     return (
         <StyledTaskEdit className='TaskEdit'>
             <div className="TaskEdit-main">
@@ -19,7 +24,7 @@ function TaskEdit(props) {
             </div>
             </div>
             <div className='TaskEdit-buttons'>
-                <Button type='text' text='Delete' />
+                <Button type='text' text='Delete' onClick={handleDeleteClick}/>
                 <div className="TaskEdit-buttons-right">
                     <Button type='text' text='Cancel' />
                     <Button type='dark' text='Save' />

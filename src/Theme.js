@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import react, {createContext, useState} from "react";
 import { ThemeProvider } from "styled-components";
+
 
 
 const colors = {
@@ -31,55 +32,52 @@ const colors = {
     
 }
 
+export const MyThemeContext = createContext();
 
-const theme = {
-    colors: {
-        main: {
-            active: 'red',
-            light: colors.red.light,
-            normal: colors.red.normal,
-            dark: colors.red.dark,
+export const MyThemeProvider = ({ children }) => {
+    const changeTheme = (col = 'red') => {
+        return {
+        colors: {
+            main: {
+                active: `${col}`,
+                light: colors[col].light,
+                normal: colors[col].normal,
+                dark: colors[col].dark,
+            },
+            mono: {
+                light1: '#E9ECEF',
+                light2: '#CED4DA',
+                grey1: '#ADB5BD',
+                grey2: '#8B9299',
+                grey3: '#6C757D',
+                grey4: '#495057',
+                dark1: '#343A40',
+                dark2: '#212529',
+            },
+            
         },
-        mono: {
-            light1: '#E9ECEF',
-            light2: '#CED4DA',
-            grey1: '#ADB5BD',
-            grey2: '#8B9299',
-            grey3: '#6C757D',
-            grey4: '#495057',
-            dark1: '#343A40',
-            dark2: '#212529',
+        fonts: ['Titillium Web', 'sans-serif'],
+        fontSizes: {
+            tiny: '0.75rem',
+            small: '0.875rem',
+            medium: '1rem',
+            large: '1.25rem',
+            giant: '6rem'
         },
-        
-    },
-    fonts: ['Titillium Web', 'sans-serif'],
-    fontSizes: {
-        tiny: '0.75rem',
-        small: '0.875rem',
-        medium: '1rem',
-        large: '1.25rem',
-        giant: '6rem'
-    },
-    fontWeights: {
-        normal: 400,
-        medium: 600
-    },
-    width: {
-        container: '460px',
-        header: '960px'
-    },
+        fontWeights: {
+            normal: 400,
+            medium: 600
+        },
+        width: {
+            container: '460px',
+            header: '960px'
+        },
+        }
+    }
+    const [theme, setTheme] = useState(changeTheme('red'));
+    return (
+        <MyThemeContext.Provider value={{ theme, setTheme, changeTheme }}>
+            <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </MyThemeContext.Provider>
+    );
 }
-
-
-export const changeTheme = (activeColor) => {
-    theme.colors.main.active = activeColor;
-    theme.colors.main.light = colors[activeColor].light;
-    theme.colors.main.normal = colors[activeColor].normal;
-    theme.colors.main.dark = colors[activeColor].dark;
-}
-changeTheme('blue');
-
-const Theme = ({ children }) => (
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
-);
-export default Theme;

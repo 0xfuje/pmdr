@@ -6,12 +6,14 @@ import GiantButton from './buttons/GiantButton';
 import FinishButton from './buttons/FinishButton';
 
 import { TimerContext } from '../context/timer.context';
+import { MyThemeContext } from '../Theme';
 
 function Timer(props) {
-    const {timer, changeActive, forceUpdate} = useContext(TimerContext);
+    const { setTheme, changeTheme } = useContext(MyThemeContext);
+    const { timer, changeActive } = useContext(TimerContext);
     const handleButtonClick = (st) => {
         changeActive(st.name);
-        forceUpdate();
+        setTheme(changeTheme(st.color));
     }
     const displayButtons = timer.states.map((st) => {
         if (st.name === timer.activeState)
@@ -24,8 +26,6 @@ function Timer(props) {
             text={st.name}
             onClick={() => handleButtonClick(st)}/>
     });
-    
-
     return (
         <StyledTimer className='Timer'>
             <div className="Timer-buttons">

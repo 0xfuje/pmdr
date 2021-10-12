@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import Main from './Main';
 import Log from './Log';
 import { Switch, Route } from 'react-router-dom';
@@ -7,13 +7,15 @@ import { Container } from './components/styled/StyledContainer';
 import GlobalStyles from './components/styled/GlobalStyles';
 
 
-
-import Theme from './Theme';
 import Header from './components/Header';
+
+import { MyThemeProvider } from './Theme';
+
+
 
 function App() {
   return (
-    <Theme>
+    <MyThemeProvider>
       <GlobalStyles />
       <Header />
     <Container>
@@ -26,7 +28,7 @@ function App() {
         </Route>
       </Switch>
     </Container>
-    </Theme>
+    </MyThemeProvider>
   )
 }
 
