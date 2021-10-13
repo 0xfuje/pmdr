@@ -9,8 +9,17 @@ export const StyledTaskEdit = styled.div`
             padding: 1.5rem 1.5rem 0.5rem;
         }
         &-title {
+            padding: 0.25rem 0.5rem;
+            width: 100%;
             font-size: ${({theme}) => theme.fontSizes.large};
+            font-weight: ${({theme}) => theme.fontWeights.medium};
             color: ${({theme}) => theme.colors.mono.dark1};
+            background-color: ${({theme}) => theme.colors.mono.light1};
+            border: 1px solid ${({theme}) => theme.colors.mono.grey3};
+            border-radius: 0.2rem;
+            &:hover, &:focus, &:focus-visible {
+                border: 1px solid ${({theme}) => theme.colors.mono.grey2};
+            }
         }
         &-pmdr {
             margin-top: 0.5rem;

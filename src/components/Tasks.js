@@ -21,6 +21,7 @@ function Tasks(props) {
     const displayTasks = tasks.map((t) => {
         if (t.isEdited) return <TaskEdit
             title={t.title}
+            all={t.all}
             key={t.id}
             id={t.id}
             forceUpdate={forceUpdate}

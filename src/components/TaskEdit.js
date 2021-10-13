@@ -5,6 +5,7 @@ import Button from './buttons/Button';
 import { TasksContext } from '../context/tasks.context';
 
 function TaskEdit(props) {
+    // Handlers, Dispatch
     const { taskDispatch } = useContext(TasksContext);
     const handleDeleteClick = () => {
         taskDispatch({ type: 'DELETE', payload: { id: props.id }});
@@ -13,17 +14,23 @@ function TaskEdit(props) {
         taskDispatch({ type: 'CANCEL-EDIT', payload: { id: props.id }});
     }
     const handleSaveClick = () => {
-        
+        taskDispatch({ type: 'SAVE-EDIT', payload:
+        { id: props.id, title: title, all: pmdrs }
+    });
     }
+
+    // TaskEdit State
+    const [pmdrs, setPmdrs] = useState(props.all);
+    const [title, setTitle] = useState(props.title);
+
     const handlePmdrChange = (e) => { setPmdrs(parseInt(e.target.value)); }
     const handleTitleChange = (e) => { setTitle(e.target.value); }
-    const [pmdrs, setPmdrs] = useState(1);
-    const [title, setTitle] = useState(props.title);
+    
 
     return (
         <StyledTaskEdit className='TaskEdit'>
             <div className="TaskEdit-main">
-            <input className='TaskEdit-title' placeholder={title} onChange={handleTitleChange} />
+            <input className='TaskEdit-title' value={title} onChange={handleTitleChange} />
             <div className='TaskEdit-pmdr'>
                 <h2 className='TaskEdit-pmdr-title'>Estimated pomodoros</h2>
                 <div className='TaskEdit-pmdr-input'>

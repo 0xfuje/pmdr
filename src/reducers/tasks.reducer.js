@@ -13,6 +13,14 @@ const tasksReducer = (state, action) => {
             return state.map((t) => (t.id === action.payload.id) ? {...t, isEdited: true} : t);
         case 'CANCEL-EDIT': 
             return state.map((t) => (t.id === action.payload.id) ? {...t, isEdited: false} : t);
+        case 'SAVE-EDIT':
+            const filteredSt = state.filter((t) => t.id !== action.payload.id);
+            const task = state.filter((t) => t.id === action.payload.id)[0];
+            task.title = action.payload.title;
+            task.all = action.payload.all;
+            task.isEdited = false;
+            const newState = [...filteredSt, task].sort((a, b) => a.pos - b.pos);
+            return newState;
         case 'DELETE':
             return state.filter((t) => t.id !== action.payload.id);
         default:

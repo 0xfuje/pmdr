@@ -28,10 +28,12 @@ export const StyledTask = styled.div`
             justify-content: space-between;
         }
         &-title {
+            max-width: 18rem;
             color: ${({theme}) => theme.colors.mono.dark1};
             font-size: ${({theme}) => theme.fontSizes.medium};
         }
         &-pmdrs {
+            text-align: left;
             color: ${({theme}) => theme.colors.mono.grey3};
             font-size: ${({theme}) => theme.fontSizes.small};
             font-weight: ${({theme}) => theme.fontWeights.medium};

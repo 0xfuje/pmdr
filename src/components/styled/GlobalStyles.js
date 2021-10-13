@@ -47,7 +47,7 @@ input,
 button,
 textarea,
 select {
-  font: inherit;
+  font-family: 'Titillium Web', sans-serif;
 }
 
 @media (prefers-reduced-motion: reduce) {
