@@ -11,6 +11,8 @@ const tasksReducer = (state, action) => {
         case 'TOGGLE-EDIT':
             state.map((t) => t.isEdited = false);
             return state.map((t) => (t.id === action.payload.id) ? {...t, isEdited: true} : t);
+        case 'CANCEL-EDIT': 
+            return state.map((t) => (t.id === action.payload.id) ? {...t, isEdited: false} : t);
         case 'DELETE':
             return state.filter((t) => t.id !== action.payload.id);
         default:
