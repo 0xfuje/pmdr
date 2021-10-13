@@ -17,7 +17,7 @@ function Icon(props) {
     if (props.type === 'check-unchecked') source = checkUnchecked;
     if (props.type === 'check-checked') source = checkChecked;
     return (
-        <StyledIcon className='Icon' type={props.type}>
+        <StyledIcon className='Icon' type={props.type} onClick={props.onClick}>
             <img className='Icon-image' src={source} alt={props.alt} />
         </StyledIcon>
     )

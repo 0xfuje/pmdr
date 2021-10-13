@@ -18,15 +18,19 @@ export const StyledIcon = styled.i`
     background-color: ${(props) => (props.type === 'settings-white')
     ? ({theme}) => theme.colors.main.light
     : ''};
-    
+    &:hover {
+        background-color: ${(props) => {
+            if (props.type === 'settings-normal') return ({theme}) => theme.colors.mono.light2;
+        }}
+    }
     .Icon {
         &-image {
             height: ${(props) => 
                 (props.type === 'check-checked' || props.type === 'check-unchecked')
                 ? '1.6rem'
                 : '0.875rem'
-            }
+            };
+        };
             
-        }
     }
 `

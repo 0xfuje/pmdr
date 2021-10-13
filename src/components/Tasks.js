@@ -17,12 +17,7 @@ function Tasks(props) {
         forceUpdate();
     }
 
-    const handleTaskClick = (id) => {
-        taskDispatch({ type: 'TOGGLE-ACTIVE', payload: { id: id }});
-        forceUpdate();
-    }
     
-
     const displayTasks = tasks.map((t) => {
         if (t.isEdited) return <TaskEdit
             title={t.title}
@@ -38,7 +33,6 @@ function Tasks(props) {
             id={t.id}
             isActive={t.isActive}
             isEdited={t.isEdited}
-            onClick={() => {handleTaskClick(t.id)}}
             forceUpdate={forceUpdate}
         />
     })
