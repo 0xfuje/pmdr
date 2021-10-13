@@ -9,12 +9,9 @@ import WideCard from './WideCard';
 function Tasks(props) {
     const {tasks, taskDispatch} = useContext(TasksContext);
     const [, forceUpdate] = useReducer(x => x + 1, 0);
-    console.log(tasks);
-    
     
     const handleAddClick = () => {
         taskDispatch({ type: 'ADD' });
-        forceUpdate();
     }
 
     

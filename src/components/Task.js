@@ -17,8 +17,8 @@ function Task(props) {
         taskDispatch({ type: 'TOGGLE-CHECK', payload: { id: props.id }});
     }
     return (
-        <StyledTask className='Task' isActive={props.isActive} onClick={handleTaskClick}>
-            <Icon alt='Check' type={'check-unchecked'} onClick={handleCheckClick} />
+        <StyledTask className='Task' isActive={props.isActive} isChecked={props.isChecked} onClick={handleTaskClick}>
+            <Icon alt='Check' type={'check'} onClick={handleCheckClick} isChecked={(props.isChecked) ? true : false} />
             <div className="Task-flex">
                 <h2 className="Task-title">{props.title}</h2>
                 <p className='Task-pmdrs'><span>{props.done}</span> / {props.all}</p>

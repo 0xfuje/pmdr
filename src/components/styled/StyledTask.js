@@ -28,11 +28,16 @@ export const StyledTask = styled.div`
         }
         &-title {
             max-width: 18rem;
-            color: ${({theme}) => theme.colors.mono.dark1};
+            color: ${(props) => (props.isChecked) 
+            ? ({theme}) => theme.colors.mono.grey2
+            : ({theme}) => theme.colors.mono.grey4};
             font-size: ${({theme}) => theme.fontSizes.medium};
+            text-decoration: ${(props) => (props.isChecked)
+            ? 'line-through'
+            : 'none'};
         }
         &-pmdrs {
-            color: ${({theme}) => theme.colors.mono.grey3};
+            color: ${({theme}) => theme.colors.mono.grey2};
             font-size: ${({theme}) => theme.fontSizes.small};
             font-weight: ${({theme}) => theme.fontWeights.medium};
             span {

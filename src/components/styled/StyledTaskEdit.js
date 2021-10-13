@@ -13,7 +13,7 @@ export const StyledTaskEdit = styled.div`
             width: 100%;
             font-size: ${({theme}) => theme.fontSizes.large};
             font-weight: ${({theme}) => theme.fontWeights.medium};
-            color: ${({theme}) => theme.colors.mono.dark1};
+            color: ${({theme}) => theme.colors.mono.grey4};
             background-color: ${({theme}) => theme.colors.mono.light1};
             border: 1px solid ${({theme}) => theme.colors.mono.grey3};
             border-radius: 0.2rem;
@@ -25,7 +25,7 @@ export const StyledTaskEdit = styled.div`
             margin-top: 0.5rem;
             &-title {
                 font-size: ${({theme}) => theme.fontSizes.medium};
-                color: ${({theme}) => theme.colors.mono.dark1};
+                color: ${({theme}) => theme.colors.mono.grey4};
                 margin-bottom: 0.25rem;
             }
             &-input {
