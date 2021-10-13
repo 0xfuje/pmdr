@@ -4,7 +4,7 @@ import settings from '../images/icons/ellipsis-v-solid.svg';
 import settingsWhite from '../images/icons/ellipsis-v-solid-white.svg';
 import caretUp from '../images/icons/caret-up-solid.svg';
 import caretDown from '../images/icons/caret-down-solid.svg';
-import checkUnchecked from '../images/icons/check-square-solid-normal.svg';
+import checkUnchecked from '../images/icons/check-solid.svg';
 import checkChecked from '../images/icons/check-square-solid-active.svg';
 
 

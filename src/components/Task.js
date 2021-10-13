@@ -12,11 +12,13 @@ function Task(props) {
     }
     const handleTaskClick = () => {
         taskDispatch({ type: 'TOGGLE-ACTIVE', payload: { id: props.id }});
-        props.forceUpdate();
+    }
+    const handleCheckClick = () => {
+        taskDispatch({ type: 'TOGGLE-CHECK', payload: { id: props.id }});
     }
     return (
         <StyledTask className='Task' isActive={props.isActive} onClick={handleTaskClick}>
-            <Icon alt='Check' type={'check-unchecked'} />
+            <Icon alt='Check' type={'check-unchecked'} onClick={handleCheckClick} />
             <div className="Task-flex">
                 <h2 className="Task-title">{props.title}</h2>
                 <p className='Task-pmdrs'><span>{props.done}</span> / {props.all}</p>

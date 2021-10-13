@@ -8,7 +8,6 @@ export const StyledTask = styled.div`
     background-color: ${({theme}) => theme.colors.mono.light1};
     border-radius: 0.2rem;
     margin-bottom: 0.625rem;
-    cursor: pointer;
     border-left: 0.5rem solid;
     border-color: ${(props) => (props.isActive)
         ? ({theme}) => theme.colors.mono.grey4
@@ -33,7 +32,6 @@ export const StyledTask = styled.div`
             font-size: ${({theme}) => theme.fontSizes.medium};
         }
         &-pmdrs {
-            text-align: left;
             color: ${({theme}) => theme.colors.mono.grey3};
             font-size: ${({theme}) => theme.fontSizes.small};
             font-weight: ${({theme}) => theme.fontWeights.medium};

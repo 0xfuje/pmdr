@@ -34,6 +34,7 @@ function Tasks(props) {
             id={t.id}
             isActive={t.isActive}
             isEdited={t.isEdited}
+            isChecked={t.isChecked}
             forceUpdate={forceUpdate}
         />
     })

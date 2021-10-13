@@ -8,7 +8,7 @@ import FinishButton from './buttons/FinishButton';
 import { TimerContext } from '../context/timer.context';
 import { MyThemeContext } from '../Theme';
 
-function Timer(props) {
+function Timer() {
     const { setTheme, changeTheme } = useContext(MyThemeContext);
     const { timer, changeActive } = useContext(TimerContext);
     const handleButtonClick = (st) => {
