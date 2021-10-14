@@ -11,6 +11,7 @@ const defTimer = {
     alarmSound: 'metal',
     isCounting: false,
     activeState: 'Pomodoro',
+    timeLeft: '30:00',
     states: [
         {name: 'Pomodoro', color: 'red'},
         {name: 'Break', color: 'blue'},

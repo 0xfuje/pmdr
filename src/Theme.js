@@ -70,7 +70,8 @@ export const MyThemeProvider = ({ children }) => {
         },
         width: {
             container: '460px',
-            header: '960px'
+            header: '960px',
+            popup: '400px',
         },
         }
     }
