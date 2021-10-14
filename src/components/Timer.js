@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext } from 'react';
 import { StyledTimer } from "./styled/StyledTimer";
 import Button from './buttons/Button';
 import Clock from './Clock';
@@ -10,9 +10,9 @@ import { MyThemeContext } from '../Theme';
 
 function Timer() {
     const { setTheme, changeTheme } = useContext(MyThemeContext);
-    const { timer, changeActive } = useContext(TimerContext);
+    const { timer, timerDispatch } = useContext(TimerContext);
     const handleButtonClick = (st) => {
-        changeActive(st.name);
+        timerDispatch({ type: 'CHANGE-ACTIVE-STATE', payload: { active: st.name }})
         setTheme(changeTheme(st.color));
     }
     const displayButtons = timer.states.map((st) => {

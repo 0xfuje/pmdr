@@ -1,9 +1,16 @@
-import React, {createContext, useState, useReducer} from 'react';
+import React, {createContext, useReducer} from 'react';
+import timerReducer from '../reducers/timer.reducer';
 
 const defTimer = {
-    timeLeft: '30:00',
-    activeState: 'Pomodoro',
+    pomodoroLength: 30,
+    shortBreakLength: 10,
+    longBreakLength: 30,
+    autoStartBreak: true,
+    autoStartPomodoro: false,
+    longBreakInterval: 4,
+    alarmSound: 'metal',
     isCounting: false,
+    activeState: 'Pomodoro',
     states: [
         {name: 'Pomodoro', color: 'red'},
         {name: 'Break', color: 'blue'},
@@ -14,14 +21,9 @@ const defTimer = {
 export const TimerContext = createContext();
 
 export function TimerProvider(props) {
-    const [timer, setTimer] = useState(defTimer);
-    const changeActive = (active) => {
-        const newTimer = timer;
-        newTimer.activeState = active;
-        setTimer(newTimer);
-    }
+    const [timer, timerDispatch] = useReducer(timerReducer, defTimer)
     return (
-        <TimerContext.Provider value={{timer, changeActive}}>
+        <TimerContext.Provider value={{timer, timerDispatch}}>
             {props.children}
         </TimerContext.Provider>
     );

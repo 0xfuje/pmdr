@@ -28,6 +28,10 @@ export const StyledButton = styled.button`
     border-radius: 0.2rem;
     cursor: pointer;
     &:hover {
-        ${({theme}) => theme.fontSizes.medium};
+        background-color: ${(props) => {
+        if (props.type === 'normal') return ({theme}) => theme.colors.main.dark;
+        if (props.type === 'active') return ({theme}) => theme.fontWeights.medium;
+        if (props.type === 'underline' || props.type === 'text' || props.type === 'dark') return ({theme}) => theme.fontWeights.medium;
+    }};
     }
 `;
