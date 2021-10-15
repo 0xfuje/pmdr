@@ -19,30 +19,18 @@ function Popup(props) {
     const handleInputChange = (e) => {
         setInputs(prevState => ({ ...prevState, [e.target.name]: e.target.value }))
     };
-
-    const handleTogglePomodoro = () => {
-        timerDispatch({ type: 'AUTO-START-POMODOROS'});
-        forceUpdate();
-    }
-    const handleToggleBreak = () => {
-        timerDispatch({ type: 'AUTO-START-BREAKS'});
-        forceUpdate();
-    }
-    const handleSaveClick = (inputs) => {
-        timerDispatch({ type: 'SAVE-SETTINGS', payload: { inputs : inputs }});
-        forceUpdate();
-    }
-    const handleCross = () => {
-        timerDispatch({ type: 'CLOSE-SETTINGS'});
-        forceUpdate();
-    }
+    const handleTogglePomodoro = () => props.togglePomodoro();
+    const handleToggleBreak = () => props.toggleBreak();
+    const handleSave = (inputs) => props.save(inputs);
+    const handleClose = () => props.close();
+    
     
     return (
-        <StyledPopup className='Popup' display={props.display}>
+        <StyledPopup className='Popup' display={timer.isSettingsDisplayed}>
             <div className="Popup-window">
                 <div className="Popup-head">
                     <h2 className="Popup-title">Timer Settings</h2>
-                    <Icon type={'cross'} onClick={handleCross}/>
+                    <Icon type={'cross'} onClick={handleClose}/>
                 </div>
                 <div className="Popup-body">
                     <div className="Popup-section Popup-section-time">
@@ -79,7 +67,7 @@ function Popup(props) {
                     </div>
                 </div>
                 <div className="Popup-button">
-                    <Button type='dark' text='Save' onClick={() => handleSaveClick(inputs)}/>
+                    <Button type='dark' text='Save' onClick={() => handleSave(inputs)}/>
                 </div>
             </div>
         </StyledPopup>

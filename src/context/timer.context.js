@@ -1,6 +1,21 @@
 import React, {createContext, useReducer} from 'react';
 import timerReducer from '../reducers/timer.reducer';
 
+const calculateTimeLeft = (minLeft, secLeft) => {
+    let currentTime = new Date().getTime();
+    let futureTime = currentTime + (minLeft * 1000 * 60) + (secLeft * 1000);
+    let difference = futureTime - currentTime;
+    return difference;
+}
+const dateConverter = (dateToConvert) => {
+    const date = new Date(dateToConvert);
+    const seconds = Math.floor((date / 1000) % 60);
+    const minutes = Math.floor((date / 1000 / 60) % 60);
+    return (`${minutes}:${seconds}`); 
+}
+
+console.log(calculateTimeLeft(12, 23));
+
 const defTimer = {
     pomodoroLength: 30,
     shortBreakLength: 10,
@@ -19,6 +34,8 @@ const defTimer = {
         {name: 'Long Break', color: 'blue'} 
     ]
 }
+
+
 
 export const TimerContext = createContext();
 

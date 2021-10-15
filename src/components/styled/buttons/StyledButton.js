@@ -9,7 +9,7 @@ export const StyledButton = styled.button`
     background-color: ${(props) => {
         if (props.type === 'normal') return ({theme}) => theme.colors.main.light;
         if (props.type === 'active') return ({theme}) => theme.colors.main.dark;
-        if (props.type === 'dark') return ({theme}) => theme.colors.mono.dark2;
+        if (props.type === 'dark') return ({theme}) => theme.colors.mono.dark1;
         if (props.type === 'light') return ({theme}) => theme.colors.mono.light;
         else { return 'inherit' }
     }};
@@ -32,8 +32,7 @@ export const StyledButton = styled.button`
     &:hover {
         background-color: ${(props) => {
         if (props.type === 'normal') return ({theme}) => theme.colors.main.dark;
-        if (props.type === 'active') return ({theme}) => theme.fontWeights.medium;
-        if (props.type === 'underline' || props.type === 'text' || props.type === 'dark') return ({theme}) => theme.fontWeights.medium;
+        if (props.type === 'dark') return ({theme}) => theme.colors.mono.dark2;
     }};
     }
 `;

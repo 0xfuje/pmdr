@@ -6,14 +6,13 @@ import Icon from './Icon';
 import TaskEdit from './TaskEdit';
 import WideCard from './WideCard';
 
-function Tasks(props) {
+function Tasks() {
     const {tasks, taskDispatch} = useContext(TasksContext);
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
     
     const handleAddClick = () => {
         taskDispatch({ type: 'ADD' });
     }
-
+    
     
     const displayTasks = tasks.map((t) => {
         if (t.isEdited) return <TaskEdit
@@ -21,7 +20,6 @@ function Tasks(props) {
             all={t.all}
             key={t.id}
             id={t.id}
-            forceUpdate={forceUpdate}
         />
         if (!t.isEdited) return <Task
             title={t.title}
@@ -32,7 +30,6 @@ function Tasks(props) {
             isActive={t.isActive}
             isEdited={t.isEdited}
             isChecked={t.isChecked}
-            forceUpdate={forceUpdate}
         />
     })
 

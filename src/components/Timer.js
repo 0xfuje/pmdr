@@ -15,6 +15,24 @@ import { MyThemeContext } from '../Theme';
 function Timer() {
     const { setTheme, changeTheme } = useContext(MyThemeContext);
     const { timer, timerDispatch } = useContext(TimerContext);
+    const [_, forceUpdate] = useReducer((x) => x+1, 0);
+
+    const togglePomodoro = () => {
+        timerDispatch({ type: 'AUTO-START-POMODOROS'});
+        forceUpdate();
+    }
+    const toggleBreak = () => {
+        timerDispatch({ type: 'AUTO-START-BREAKS'});
+        forceUpdate();
+    }
+    const save = (inputs) => {
+        timerDispatch({ type: 'SAVE-SETTINGS', payload: { inputs : inputs }});
+        forceUpdate();
+    }
+    const close = () => {
+        timerDispatch({ type: 'CLOSE-SETTINGS'});
+        forceUpdate();
+    }
 
     const handleButtonClick = (st) => {
         timerDispatch({ type: 'CHANGE-ACTIVE-STATE', payload: { active: st.name }})
@@ -22,9 +40,7 @@ function Timer() {
     }
     const handleSettingsClick = () => {
         timerDispatch({ type: 'OPEN-SETTINGS'});
-    }
-    const cross = () => {
-        timerDispatch({ type: 'CLOSE-SETTINGS'});
+        forceUpdate();
     }
     const displayButtons = timer.states.map((st) => {
         if (st.name === timer.activeState)
@@ -39,7 +55,12 @@ function Timer() {
     });
     return (
         <StyledTimer className='Timer'>
-            <Popup display={timer.isSettingsDisplayed} cross={cross}/>
+            <Popup 
+                togglePomodoro={togglePomodoro}
+                toggleBreak={toggleBreak}
+                save={save}
+                close={close}
+            />
             <div className="Timer-buttons">
                 {displayButtons}
             </div>
