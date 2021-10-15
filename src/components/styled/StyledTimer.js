@@ -11,6 +11,11 @@ export const StyledTimer = styled.div`
             justify-content: center;
             gap: 0.2rem;
         }
+        &-settings {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
         &-controll {
             position: relative;
             display: flex;

@@ -4,6 +4,7 @@ const timerReducer = (state, action) => {
         case 'STOP-TIMER':
         case 'FINISH-TIMER':
         case 'OPEN-SETTINGS':
+            console.log('open settings click');
             const nState6 = state;
             nState6.isSettingsDisplayed = true;
             return nState6;

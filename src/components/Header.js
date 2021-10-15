@@ -1,15 +1,10 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { StyledHeader } from './styled/StyledHeader';
 import Button from './buttons/Button';
 import { StyledProgressLine } from './styled/StyledProgressLine';
 import { NavLink } from 'react-router-dom';
-import { TimerContext } from '../context/timer.context';
 
 function Header() {
-    const { timerDispatch } = useContext(TimerContext);
-    const handleSettingsClick = () => {
-        timerDispatch({ type: 'OPEN-SETTINGS'});
-    }
     return (
         <>
         <StyledHeader className="Header">
@@ -23,11 +18,8 @@ function Header() {
                         </li>
                         <li className='Header-list-item'>
                             <NavLink activeClassName='active' to='/log' exact>
-                                <Button type={'normal'} text='Projects / Log'/>
+                                <Button type={'normal'} text='Log'/>
                             </NavLink>
-                        </li>
-                        <li className='Header-list-item'>
-                            <Button type={'normal'} text='Settings' onClick={handleSettingsClick}/>
                         </li>
                 </ul>
             </div>

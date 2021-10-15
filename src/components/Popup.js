@@ -1,11 +1,11 @@
-import React, {useContext, useReducer, useState} from 'react';
+import React, {useContext, useReducer, useState, useEffect} from 'react';
 import { StyledPopup } from './styled/StyledPopup';
 import Icon from './Icon';
 import Button from './buttons/Button';
 import ToggleSwitch from './ToggleSwitch';
 import { TimerContext } from '../context/timer.context';
 
-function Popup() {
+function Popup(props) {
     const { timer, timerDispatch } = useContext(TimerContext);
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
 
@@ -19,7 +19,6 @@ function Popup() {
     const handleInputChange = (e) => {
         setInputs(prevState => ({ ...prevState, [e.target.name]: e.target.value }))
     };
-
 
     const handleTogglePomodoro = () => {
         timerDispatch({ type: 'AUTO-START-POMODOROS'});
@@ -39,7 +38,7 @@ function Popup() {
     }
     
     return (
-        <StyledPopup className='Popup' display={timer.isSettingsDisplayed}>
+        <StyledPopup className='Popup' display={props.display}>
             <div className="Popup-window">
                 <div className="Popup-head">
                     <h2 className="Popup-title">Timer Settings</h2>

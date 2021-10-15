@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React from 'react';
 import Main from './Main';
 import Log from './Log';
 import { Switch, Route } from 'react-router-dom';
@@ -8,8 +8,6 @@ import GlobalStyles from './components/styled/GlobalStyles';
 
 
 import Header from './components/Header';
-import { TimerProvider } from './context/timer.context';
-
 import { MyThemeProvider } from './Theme';
 
 
@@ -18,9 +16,7 @@ function App() {
   return (
     <MyThemeProvider>
       <GlobalStyles />
-      <TimerProvider>
-        <Header />
-      </TimerProvider>
+      <Header />
     <Container>
       <Switch>
         <Route exact path='log'>
