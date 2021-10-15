@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const StyledPopup = styled.div`
+    display: ${(props) => (props.display)
+    ? 'block'
+    : 'none'};
     z-index: 100;
     width: 100vw;
     background-color: ${({theme}) => theme.colors.mono.light1};

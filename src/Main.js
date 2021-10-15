@@ -16,7 +16,7 @@ function Main() {
     <>
     <TimerProvider>
       <Timer />
-      <Popup />
+      <Popup/>
     </TimerProvider>
     <TasksProvider>
       <CurrentTask />

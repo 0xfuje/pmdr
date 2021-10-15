@@ -8,6 +8,7 @@ import GlobalStyles from './components/styled/GlobalStyles';
 
 
 import Header from './components/Header';
+import { TimerProvider } from './context/timer.context';
 
 import { MyThemeProvider } from './Theme';
 
@@ -17,7 +18,9 @@ function App() {
   return (
     <MyThemeProvider>
       <GlobalStyles />
-      <Header />
+      <TimerProvider>
+        <Header />
+      </TimerProvider>
     <Container>
       <Switch>
         <Route exact path='log'>
