@@ -9,6 +9,7 @@ const defTimer = {
     autoStartPomodoro: false,
     longBreakInterval: 4,
     alarmSound: 'metal',
+    isSettingsDisplayed: true,
     isCounting: false,
     activeState: 'Pomodoro',
     timeLeft: '30:00',

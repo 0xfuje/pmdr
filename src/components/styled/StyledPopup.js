@@ -41,6 +41,8 @@ export const StyledPopup = styled.div`
         &-section {
             padding: 1.5rem 0;
             position: relative;
+            display: flex;
+            justify-content: space-between;
             &::after {
                 height: 0.5px;
                 background-color: ${({theme}) => theme.colors.mono.grey1};
@@ -50,7 +52,10 @@ export const StyledPopup = styled.div`
                 bottom: 0;
             }
             &-time {
+                display: block;
                 &-flex {
+                    display: flex;
+                    justify-content: space-between;
                     margin-top: 0.5rem;
                 }
             }
@@ -76,12 +81,13 @@ export const StyledPopup = styled.div`
         &-numInput {
             background-color: ${({theme}) => theme.colors.mono.light2};
             border: none;
-            width: 4rem;
+            width: 5rem;
             padding: 0.25rem 0.5rem;
             text-align: right;
             font-size: ${({theme}) => theme.fontSizes.small};
             font-weight: ${({theme}) => theme.fontWeights.medium};
             color: ${({theme}) => theme.colors.mono.dark1};
+            text-align: left;
         }
         &-button {
             padding: 1rem 2rem;
