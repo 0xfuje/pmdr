@@ -7,6 +7,7 @@ const colors = {
     red: {
         light: '#AA4040',
         normal: '#813737',
+        hover: '#993333',
         dark: "#6B3333",
     },
     green: {
@@ -43,6 +44,7 @@ export const MyThemeProvider = ({ children }) => {
                 light: colors[col].light,
                 normal: colors[col].normal,
                 dark: colors[col].dark,
+                hover: colors[col].hover
             },
             mono: {
                 light1: '#E9ECEF',

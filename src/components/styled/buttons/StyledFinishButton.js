@@ -9,5 +9,7 @@ export const StyledFinishButton = styled.button`
     cursor: pointer;
     width: 2rem;
     background-color: ${({theme}) => theme.colors.main.light};
-
+    &:active {
+        transform: translateY(calc(-50% - 2px));
+    }
 `

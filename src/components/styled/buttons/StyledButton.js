@@ -16,7 +16,7 @@ export const StyledButton = styled.button`
     color: ${(props) => {
         if (props.type === 'normal' || props.type === 'active') return ({theme}) => theme.colors.mono.light1;
         if (props.type === 'dark') return ({theme}) => theme.colors.mono.light1;
-        if (props.type === 'text' || props.type === 'underline') return ({theme}) => theme.colors.mono.dark1;
+        if (props.type === 'text' || props.type === 'underline') return ({theme}) => theme.colors.mono.grey4;
         if (props.type === 'light') return ({theme}) => theme.colors.main.light;
     }};
     font-size: ${({theme}) => theme.fontSizes.small};
@@ -31,8 +31,11 @@ export const StyledButton = styled.button`
     cursor: pointer;
     &:hover {
         background-color: ${(props) => {
-        if (props.type === 'normal') return ({theme}) => theme.colors.main.dark;
-        if (props.type === 'dark') return ({theme}) => theme.colors.mono.dark2;
-    }};
+        if (props.type === 'normal') return ({theme}) => theme.colors.main.hover;
+        if (props.type === 'dark') return ({theme}) => theme.colors.mono.dark2;}};
+        color: ${(props) => (props.type === 'text' || props.type === 'underline') ? ({theme}) => theme.colors.mono.dark2 : '' };
+    }
+    &:active {
+        transform: translateY(2px);
     }
 `;

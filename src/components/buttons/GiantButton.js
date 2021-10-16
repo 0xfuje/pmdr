@@ -3,7 +3,7 @@ import { StyledGiantButton } from '../styled/buttons/StyledGiantButton';
 
 function GiantButton(props) {
     return (
-        <StyledGiantButton className='GiantButton'>
+        <StyledGiantButton className='GiantButton' onClick={props.onClick}>
             {props.text}
         </StyledGiantButton>
     )

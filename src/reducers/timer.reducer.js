@@ -1,8 +1,13 @@
 const timerReducer = (state, action) => {
     switch(action.type) {
-        case 'START-TIMER':
-        case 'STOP-TIMER':
+        case 'START-STOP-TIMER':
+            const nState7 = state;
+            nState7.isCounting = !state.isCounting;
+            return nState7;
         case 'FINISH-TIMER':
+            const nState8 = state;
+            nState8.isCounting = false;
+            return nState8;
         case 'OPEN-SETTINGS':
             console.log('open settings click');
             const nState6 = state;

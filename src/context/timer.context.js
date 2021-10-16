@@ -7,6 +7,7 @@ const calculateTimeLeft = (minLeft, secLeft) => {
     let difference = futureTime - currentTime;
     return difference;
 }
+
 const dateConverter = (dateToConvert) => {
     const date = new Date(dateToConvert);
     const seconds = Math.floor((date / 1000) % 60);

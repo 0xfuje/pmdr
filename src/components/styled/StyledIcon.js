@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 
 
 export const StyledIcon = styled.i`
@@ -30,7 +30,14 @@ export const StyledIcon = styled.i`
         background-color: ${(props) => {
             if (props.type === 'settings-normal' || (props.type === 'check' && !props.isChecked)) return ({theme}) => theme.colors.mono.light2;
             if (props.type === 'cross') return ({theme}) => theme.colors.mono.dark1;
+            if (props.type === 'settings-white') return ({theme}) => theme.colors.main.hover;
+        }};
+        border-color: ${(props) => {
+            if (props.type === 'settings-white') return ({theme}) => theme.colors.main.hover;
         }}
+    }
+    &:active {
+        transform: translateY(2px);
     }
     .Icon {
         &-image {

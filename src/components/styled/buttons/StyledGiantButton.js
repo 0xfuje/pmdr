@@ -10,4 +10,7 @@ export const StyledGiantButton = styled.button`
     padding: 0.75rem 3rem;
     border: none;
     border-radius: 0.2rem;
+    &:active {
+        transform: translateY(2px);
+    }
 `

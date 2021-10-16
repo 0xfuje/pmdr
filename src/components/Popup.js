@@ -6,8 +6,7 @@ import ToggleSwitch from './ToggleSwitch';
 import { TimerContext } from '../context/timer.context';
 
 function Popup(props) {
-    const { timer, timerDispatch } = useContext(TimerContext);
-    const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+    const { timer } = useContext(TimerContext);
 
     // Input states
     const [inputs, setInputs] = useState({

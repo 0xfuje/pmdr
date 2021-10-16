@@ -13,6 +13,7 @@ export const StyledTask = styled.div`
         ? ({theme}) => theme.colors.mono.grey4
         : ({theme}) => theme.colors.mono.light1
     };
+    box-shadow: 0.1rem 0.1rem 0.4rem rgba(0,0,0, 0.3);
     &:hover {
         border-color: ${(props) => (props.isActive)
         ? ({theme}) => theme.colors.mono.grey4

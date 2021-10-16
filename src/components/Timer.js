@@ -42,6 +42,10 @@ function Timer() {
         timerDispatch({ type: 'OPEN-SETTINGS'});
         forceUpdate();
     }
+    const handleStartClick = () => {
+        timerDispatch({ type: 'START-STOP-TIMER'});
+        forceUpdate();
+    }
     const displayButtons = timer.states.map((st) => {
         if (st.name === timer.activeState)
             return <Button
@@ -66,7 +70,7 @@ function Timer() {
             </div>
             <Clock time={timer.timeLeft} />
             <div className="Timer-controll">
-                <GiantButton text={timer.isCounting ? 'stop' : 'start'} />
+                <GiantButton text={timer.isCounting ? 'stop' : 'start'} onClick={handleStartClick}/>
                 {timer.isCounting ? <FinishButton /> : ''}
             </div>
             <div className="Timer-settings">
