@@ -1,8 +1,9 @@
 const timerReducer = (state, action) => {
     switch(action.type) {
         case 'START-TIMER':
-            console.log('tick ' + action.payload.tick);
-            return ({...state, isCounting: true, timeLeft: action.payload.tick});
+            return ({...state, isCounting: true});
+        case 'TICK':
+            return ({...state, timeLeft: action.payload.time, timeLeftInMs: action.payload.timeInMs});
         case 'STOP-TIMER':
             console.log('stop');
             return ({...state, isCounting: false});
