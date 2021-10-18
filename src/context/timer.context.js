@@ -1,5 +1,6 @@
 import React, {createContext, useReducer} from 'react';
 import timerReducer from '../reducers/timer.reducer';
+import { nanoid } from 'nanoid';
 
 const defTimer = {
     pomodoroLength: 30,
@@ -11,16 +12,14 @@ const defTimer = {
     alarmSound: 'metal',
     isSettingsDisplayed: false,
     isCounting: false,
+    isStartedBefore: false,
     activeState: 'Pomodoro',
     timeLeft: '30:00',
     timeLeftInMs: '',
-    currentTimeInMs: '',
-    endTimeInMs: '',
-    interval: '',
     states: [
-        {name: 'Pomodoro', color: 'red'},
-        {name: 'Break', color: 'blue'},
-        {name: 'Long Break', color: 'blue'} 
+        {name: 'Pomodoro', color: 'red', id: nanoid()},
+        {name: 'Break', color: 'blue', id: nanoid()},
+        {name: 'Long Break', color: 'blue', id: nanoid()} 
     ]
 }
 

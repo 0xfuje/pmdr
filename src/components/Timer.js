@@ -43,6 +43,12 @@ function Timer() {
     const handleStartClick = () => {
         startCount();
     }
+    const handleFinishClick = () => {
+        clearInterval(intervalID);
+        timerDispatch({ type: 'FINISH-TIMER' });
+    }
+
+    
 
     // Display variables
     const displayButtons = timer.states.map((st) => {
@@ -61,8 +67,6 @@ function Timer() {
 
 
     // Counter functionality
-    const currentTime = new Date().getTime();
-
     const msConverter = (min = 0, sec = 0) => {
         const milliseconds = (min* 1000 * 60) + (sec * 1000);
         return milliseconds;
@@ -83,23 +87,35 @@ function Timer() {
 
     const startCount = () => {
         clearInterval(intervalID);
-        if (!timer.isCounting) {
+        const currentTime = new Date().getTime();
+        if (!timer.isCounting && timer.isStartedBefore) {
+            clearInterval(intervalID);
+            timerDispatch({ type: 'RESUME-TIMER' });
+            const clockID = setInterval(() => {
+                const endDate = currentTime + timer.timeLeftInMs;
+                timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate) }});
+            }, 1000);
+            setIntervalID(clockID);
+        }
+        if (!timer.isCounting && !timer.isStartedBefore) {
+            clearInterval(intervalID);
             timerDispatch({ type: 'START-TIMER' });
             const clockID = setInterval(() => {
-            const endDate = (!!timer.timeLeftInMs) 
-            ? currentTime + timer.timeLeftInMs
-            : currentTime + msConverter(timer.pomodoroLength);
-            const newTime = tick(endDate + 1000);
-            timerDispatch({ type: 'TICK', payload: { time: dateConverter(newTime), timeInMs: newTime }});
+                const endDate = currentTime + msConverter(timer.pomodoroLength) + 1000;
+                timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate) }});
             }, 1000);
             setIntervalID(clockID);
         }
         if (timer.isCounting) {
+            clearInterval(intervalID);
             timerDispatch({ type: 'STOP-TIMER'});
         };
     }
 
+    window.document.title = `${timer.timeLeft} - ${timer.activeState}`;
+
     return (
+        
         <StyledTimer className='Timer'>
             <Popup 
                 togglePomodoro={togglePomodoro}
@@ -113,7 +129,7 @@ function Timer() {
             <Clock time={timer.timeLeft} />
             <div className="Timer-controll">
                 <GiantButton text={timer.isCounting ? 'stop' : 'start'} onClick={handleStartClick}/>
-                {timer.isCounting ? <FinishButton /> : ''}
+                {timer.isCounting ? <FinishButton onClick={handleFinishClick} /> : ''}
             </div>
             <div className="Timer-settings">
                 <Button type='light' text='Settings' onClick={handleSettingsClick}/>
