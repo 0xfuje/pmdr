@@ -8,6 +8,7 @@ import Button from './buttons/Button';
 import GiantButton from './buttons/GiantButton';
 import FinishButton from './buttons/FinishButton';
 
+import birdChirp from '../audios/european-robin.mp3';
 
 import { TimerContext } from '../context/timer.context';
 import { MyThemeContext } from '../Theme';
@@ -112,8 +113,26 @@ function Timer() {
         };
     }
 
-    window.document.title = `${timer.timeLeft} - ${timer.activeState}`;
+    // Bird chirping audio file
+    const audioCtx = new AudioContext();
+    let audio;
 
+    fetch(birdChirp)
+        .then(data => data.arrayBuffer())
+        .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
+        .then(decodedAudio => {audio = decodedAudio})
+        .catch(err => console.error('ERROR: ' + err));
+
+    const playBirdChirp = () => {
+        const playSound = audioCtx.createBufferSource();
+        playSound.buffer = audio;
+        playSound.connect(audioCtx.destination);
+        playSound.start(0);
+        console.log('chirp chirp')
+    }
+
+    // Web Title
+    window.document.title = `${timer.timeLeft} - ${timer.activeState}`;
     return (
         
         <StyledTimer className='Timer'>
@@ -122,6 +141,7 @@ function Timer() {
                 toggleBreak={toggleBreak}
                 save={save}
                 close={close}
+                playBirdChirp={playBirdChirp}
             />
             <div className="Timer-buttons">
                 {displayButtons}

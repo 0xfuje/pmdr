@@ -1,4 +1,4 @@
-import React, {useContext, useReducer, useState, useEffect} from 'react';
+import React, {useContext, useState } from 'react';
 import { StyledPopup } from './styled/StyledPopup';
 import Icon from './Icon';
 import Button from './buttons/Button';
@@ -63,6 +63,7 @@ function Popup(props) {
                     </div>
                     <div className="Popup-section Popup-section-alarmSound">
                         <h3 className="Popup-smTitle">Alarm Sound</h3>
+                        <Button type='dark' text='Bird Chirp' onClick={() => props.playBirdChirp()} />
                     </div>
                 </div>
                 <div className="Popup-button">
