@@ -1,45 +1,33 @@
 const timerReducer = (state, action) => {
     switch(action.type) {
-        case 'START-STOP-TIMER':
-            const nState7 = state;
-            nState7.isCounting = !state.isCounting;
-            return nState7;
+        case 'START-TIMER':
+            console.log('tick ' + action.payload.tick);
+            return ({...state, isCounting: true, timeLeft: action.payload.tick});
+        case 'STOP-TIMER':
+            console.log('stop');
+            return ({...state, isCounting: false});
         case 'FINISH-TIMER':
-            const nState8 = state;
-            nState8.isCounting = false;
-            return nState8;
+            console.log('finish');
+            return ({...state, isCounting: false});
         case 'OPEN-SETTINGS':
-            console.log('open settings click');
-            const nState6 = state;
-            nState6.isSettingsDisplayed = true;
-            return nState6;
+            return ({...state, isSettingsDisplayed: true});
         case 'CLOSE-SETTINGS':
-            const nState5 = state;
-            nState5.isSettingsDisplayed = false;
-            return nState5;
+            return ({...state, isSettingsDisplayed: false})
         case 'AUTO-START-BREAKS':
-            console.log('BREAK');
-            const nState3 = state;
-            nState3.autoStartBreak = !state.autoStartBreak;
-            return nState3;
+            return ({...state, autoStartBreak: !state.autoStartBreak});
         case 'AUTO-START-POMODOROS':
-            console.log('POMODORO');
-            const nState2 = state;
-            nState2.autoStartPomodoro = !state.autoStartPomodoro;
-            return nState2;
+            return ({...state, autoStartPomodoro: !state.autoStartPomodoro});
         case 'CHANGE-ACTIVE-STATE':
-            const nState1 = state;
-            nState1.activeState = (action.payload.active);
-            return nState1;
+            return ({...state, activeState: action.payload.active});
         case 'SAVE-SETTINGS':
-            const nState4 = state;
-            nState4.pomodoroLength = parseInt(action.payload.inputs.pomodoro);
-            nState4.shortBreakLength = parseInt(action.payload.inputs.shortBreak);
-            nState4.longBreakLength = parseInt(action.payload.inputs.longBreak);
-            nState4.longBreakInterval = parseInt(action.payload.inputs.longBreakInterval);
-            nState4.isSettingsDisplayed = false;
-            console.log(nState4);
-            return nState4;
+            return ({
+                ...state,
+                pomodoroLength: parseInt(action.payload.inputs.pomodoro),
+                shortBreakLength: parseInt(action.payload.inputs.shortBreak),
+                longBreakLength: parseInt(action.payload.inputs.longBreak),
+                longBreakInterval: parseInt(action.payload.inputs.longBreakInterval),
+                isSettingsDisplayed: false
+            });
         default:
             return state;
     }
