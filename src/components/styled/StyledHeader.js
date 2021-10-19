@@ -13,6 +13,7 @@ export const StyledHeader = styled.header`
             gap: 0.5rem;
         }
         &-logo {
+            margin: 0 auto;
             font-size: ${({theme}) => theme.fontSizes.large};
             font-weight: ${({theme}) => theme.fontWeights.medium};
         }

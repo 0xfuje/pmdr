@@ -14,7 +14,7 @@ import { TimerContext } from '../context/timer.context';
 import { MyThemeContext } from '../Theme';
 
 function Timer() {
-    const { setTheme, changeTheme } = useContext(MyThemeContext);
+    const { theme, setTheme, changeTheme } = useContext(MyThemeContext);
     const { timer, timerDispatch } = useContext(TimerContext);
     const [intervalID, setIntervalID] = useState();
 
@@ -27,6 +27,7 @@ function Timer() {
         timerDispatch({ type: 'AUTO-START-BREAKS' });
     }
     const save = (inputs) => {
+        clearInterval(intervalID);
         timerDispatch({ type: 'SAVE-SETTINGS', payload: { inputs : inputs }});
     }
     const close = () => {
@@ -35,7 +36,7 @@ function Timer() {
 
     // Handlers
     const handleButtonClick = (st) => {
-        timerDispatch({ type: 'CHANGE-ACTIVE-STATE', payload: { active: st.name }})
+        timerDispatch({ type: 'CHANGE-ACTIVE-STATE', payload: { newStates: changeState(st) }})
         setTheme(changeTheme(st.color));
     }
     const handleSettingsClick = () => {
@@ -45,15 +46,13 @@ function Timer() {
         startCount();
     }
     const handleFinishClick = () => {
-        clearInterval(intervalID);
-        timerDispatch({ type: 'FINISH-TIMER' });
+        finishCount();
     }
 
-    
 
     // Display variables
     const displayButtons = timer.states.map((st) => {
-        if (st.name === timer.activeState)
+        if (st.isActive === true)
             return <Button
                 type='active'
                 text={st.name}
@@ -62,12 +61,24 @@ function Timer() {
         return <Button
             type='normal'
             text={st.name}
-            kye={st.id}
+            key={st.id}
             onClick={() => handleButtonClick(st)}/>
     });
 
 
+    // State Change helper function
+    const changeState = (st) => {
+        timer.states.map((s) => s.isActive = false);
+        const stateWithoutActive = timer.states.filter((s) => s.id !== st.id);
+        const active = timer.states.filter((s) => s.id === st.id)[0];
+        const newStates = [...stateWithoutActive, {...active, isActive: true}].sort((a, b) => a.pos - b.pos);
+        return newStates;
+    }
+   
+
     // Counter functionality
+    let currentActive =  timer.states.filter((st) => st.isActive === true)[0];
+
     const msConverter = (min = 0, sec = 0) => {
         const milliseconds = (min* 1000 * 60) + (sec * 1000);
         return milliseconds;
@@ -101,8 +112,9 @@ function Timer() {
         if (!timer.isCounting && !timer.isStartedBefore) {
             clearInterval(intervalID);
             timerDispatch({ type: 'START-TIMER' });
+            const currentLength = currentActive.length;
             const clockID = setInterval(() => {
-                const endDate = currentTime + msConverter(timer.pomodoroLength) + 1000;
+                const endDate = currentTime + msConverter(currentLength) + 1000;
                 timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate) }});
             }, 1000);
             setIntervalID(clockID);
@@ -113,10 +125,59 @@ function Timer() {
         };
     }
 
-    // Bird chirping audio file
+    const finishCount = () => {
+        clearInterval(intervalID);
+        const pomodoro = timer.states.filter((st) => st.name === 'Pomodoro')[0];
+        const shortBreak = timer.states.filter((st) => st.name === 'Break')[0];
+        const longBreak = timer.states.filter((st) => st.name === 'Long Break')[0];
+
+        
+        const changeActive = () => {
+            if (currentActive.name === 'Pomodoro') {
+                if (timer.longBreakInterval - 1 > timer.currentInterval) {
+                    return { 
+                        interval: timer.currentInterval + 1,
+                        states: changeState(shortBreak),
+                        timeLeft: shortBreak.length + ':00',
+                    }
+                }
+                else {
+                    return {
+                        interval: 0,
+                        states: changeState(longBreak),
+                        timeLeft: longBreak.length + ':00',
+                    }
+                }
+            }
+            else {
+                return {
+                    interval: timer.currentInterval,
+                    states: changeState(pomodoro),
+                    timeLeft: pomodoro.length + ':00'
+                }
+            }
+        }
+        const {interval, states, timeLeft} = changeActive();
+        console.log(interval, states, timeLeft);
+
+        timerDispatch
+            ({  
+                type: 'FINISH-TIMER',
+                payload: {
+                    interval: interval,
+                    states: states,
+                    timeLeft: timeLeft
+                }
+            });
+        if (theme.colors.main.active === 'blue') setTheme(changeTheme('red'));
+        if (theme.colors.main.active === 'red') setTheme(changeTheme('blue'));
+        playBirdChirp();
+    }
+    
+
+    // Working with audio
     const audioCtx = new AudioContext();
     let audio;
-
     fetch(birdChirp)
         .then(data => data.arrayBuffer())
         .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
@@ -128,20 +189,19 @@ function Timer() {
         playSound.buffer = audio;
         playSound.connect(audioCtx.destination);
         playSound.start(0);
-        console.log('chirp chirp')
+        playSound.stop(audioCtx.currentTime + 3);
     }
+
 
     // Web Title
     window.document.title = `${timer.timeLeft} - ${timer.activeState}`;
     return (
-        
         <StyledTimer className='Timer'>
             <Popup 
                 togglePomodoro={togglePomodoro}
                 toggleBreak={toggleBreak}
                 save={save}
                 close={close}
-                playBirdChirp={playBirdChirp}
             />
             <div className="Timer-buttons">
                 {displayButtons}
@@ -158,4 +218,4 @@ function Timer() {
     )
 }
 
-export default Timer
+export default Timer;

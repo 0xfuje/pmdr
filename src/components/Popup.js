@@ -25,7 +25,7 @@ function Popup(props) {
     
     
     return (
-        <StyledPopup className='Popup' display={timer.isSettingsDisplayed}>
+        <StyledPopup className='Popup' display={(timer.isSettingsDisplayed) ? true : false}>
             <div className="Popup-window">
                 <div className="Popup-head">
                     <h2 className="Popup-title">Timer Settings</h2>
@@ -63,7 +63,6 @@ function Popup(props) {
                     </div>
                     <div className="Popup-section Popup-section-alarmSound">
                         <h3 className="Popup-smTitle">Alarm Sound</h3>
-                        <Button type='dark' text='Bird Chirp' onClick={() => props.playBirdChirp()} />
                     </div>
                 </div>
                 <div className="Popup-button">

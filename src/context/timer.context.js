@@ -3,23 +3,22 @@ import timerReducer from '../reducers/timer.reducer';
 import { nanoid } from 'nanoid';
 
 const defTimer = {
-    pomodoroLength: 30,
-    shortBreakLength: 10,
-    longBreakLength: 30,
     longBreakInterval: 4,
+    currentInterval: 0,
     autoStartBreak: true,
     autoStartPomodoro: false,
-    alarmSound: 'metal',
+    alarmSound: 'bird-chirp',
     isSettingsDisplayed: false,
     isCounting: false,
     isStartedBefore: false,
-    activeState: 'Pomodoro',
-    timeLeft: '30:00',
+    timeLeft: '25:00',
     timeLeftInMs: '',
+    timeFullInMs: '',
+    timePassedPercent: '',
     states: [
-        {name: 'Pomodoro', color: 'red', id: nanoid()},
-        {name: 'Break', color: 'blue', id: nanoid()},
-        {name: 'Long Break', color: 'blue', id: nanoid()} 
+        {name: 'Pomodoro', pos: 0,  length: 25, color: 'red', id: nanoid(), isActive: true},
+        {name: 'Break', pos: 1,  length: 5, color: 'blue', id: nanoid(), isActive: false},
+        {name: 'Long Break', pos: 2,  length: 25, color: 'blue', id: nanoid(), isActive: false} 
     ]
 }
 

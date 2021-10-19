@@ -38,7 +38,7 @@ function TaskEdit(props) {
                     <Icon alt='Add pmdr' type={'caret-up'} onClick={() => setPmdrs(pmdrs + 1)} />
                     <Icon alt='Add pmdr' type={'caret-down'} onClick={() => (pmdrs > 1) ? setPmdrs(pmdrs - 1) : ''} />
                 </div>
-                <Button className='TaskEdit-button-addProject' type='underline' text='+ Add to Project'/>
+                {/* <Button className='TaskEdit-button-addProject' type='underline' text='+ Add to Project'/> */}
             </div>
             </div>
             <div className='TaskEdit-buttons'>

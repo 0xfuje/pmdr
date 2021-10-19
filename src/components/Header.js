@@ -9,7 +9,7 @@ function Header() {
         <>
         <StyledHeader className="Header">
             <div className="Header-logo">pmdr</div>
-            <div className="Header-navigation">
+            {/* <div className="Header-navigation">
                 <ul className='Header-list'>
                         <li className='Header-list-item'>
                             <NavLink activeClassName='active' to='/' exact>
@@ -22,7 +22,7 @@ function Header() {
                             </NavLink>
                         </li>
                 </ul>
-            </div>
+            </div> */}
         </StyledHeader>
         <StyledProgressLine />
         </>

@@ -54,7 +54,6 @@ export const StyledTaskEdit = styled.div`
             display: flex;
             justify-content: space-between;
             width: 100%;
-            margin-top: 1rem;
             padding: 1rem 2rem;
             background-color: ${({theme}) => theme.colors.mono.light2};
             border-radius: 0 0 0.2rem 0.2rem;

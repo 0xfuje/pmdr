@@ -8,13 +8,24 @@ const timerReducer = (state, action) => {
             return ({...state, isCounting: true });
         case 'TICK':
             console.log(action.payload.time);
-            return ({...state, timeLeft: action.payload.time, timeLeftInMs: action.payload.timeInMs});
+            return ({
+                ...state,
+                timeLeft: action.payload.time,
+                timeLeftInMs: action.payload.timeInMs
+            });
         case 'STOP-TIMER':
             console.log('stop');
             return ({...state, isCounting: false});
         case 'FINISH-TIMER':
             console.log('finish');
-            return ({...state, isCounting: false, isStartedBefore: false, timeLeft: state.pomodoroLength + ':00', timeLeftInMs: ''});
+            return ({...state,
+                isCounting: false,
+                isStartedBefore: false,
+                timeLeft: action.payload.timeLeft,
+                timeLeftInMs: '',
+                currentInterval: action.payload.interval,
+                states: action.payload.states
+            });
         case 'OPEN-SETTINGS':
             return ({...state, isSettingsDisplayed: true});
         case 'CLOSE-SETTINGS':
@@ -24,7 +35,7 @@ const timerReducer = (state, action) => {
         case 'AUTO-START-POMODOROS':
             return ({...state, autoStartPomodoro: !state.autoStartPomodoro});
         case 'CHANGE-ACTIVE-STATE':
-            return ({...state, activeState: action.payload.active});
+            return ({...state, states: action.payload.newStates});
         case 'SAVE-SETTINGS':
             return ({
                 ...state,
@@ -33,6 +44,7 @@ const timerReducer = (state, action) => {
                 longBreakLength: parseInt(action.payload.inputs.longBreak),
                 longBreakInterval: parseInt(action.payload.inputs.longBreakInterval),
                 timeLeft: action.payload.inputs.pomodoro + ':00',
+                timeLeftInMs: action.payload.inputs.pomodoro * 1000 * 60,
                 isSettingsDisplayed: false
             });
         default:
