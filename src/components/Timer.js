@@ -18,7 +18,6 @@ function Timer() {
     const { timer, timerDispatch } = useContext(TimerContext);
     const [intervalID, setIntervalID] = useState();
 
-
     // Passed down functions
     const togglePomodoro = () => {
         timerDispatch({ type: 'AUTO-START-POMODOROS'});
@@ -28,7 +27,13 @@ function Timer() {
     }
     const save = (inputs) => {
         clearInterval(intervalID);
-        timerDispatch({ type: 'SAVE-SETTINGS', payload: { inputs : inputs }});
+        const timeLeft = () => {
+            if (timer.active.name === 'Pomodoro') return inputs.pomodoro;
+            if (timer.active.name === 'Break') return inputs.shortBreak;
+            if (timer.active.name === 'Long Break') return inputs.longBreak;
+        }
+        
+        timerDispatch({ type: 'SAVE-SETTINGS', payload: { inputs : inputs, timeLeft: timeLeft() }});
     }
     const close = () => {
         timerDispatch({ type: 'CLOSE-SETTINGS' });
@@ -36,7 +41,15 @@ function Timer() {
 
     // Handlers
     const handleButtonClick = (st) => {
-        timerDispatch({ type: 'CHANGE-ACTIVE-STATE', payload: { newStates: changeState(st) }})
+        clearInterval(intervalID);
+        timerDispatch({ type: 'CHANGE-ACTIVE-STATE', 
+        payload:
+            { 
+                states: changeState(st)[0],
+                timeLeft: st.length + ':00',
+                active: changeState(st)[1],
+            }
+        })
         setTheme(changeTheme(st.color));
     }
     const handleSettingsClick = () => {
@@ -52,7 +65,7 @@ function Timer() {
 
     // Display variables
     const displayButtons = timer.states.map((st) => {
-        if (st.isActive === true)
+        if (st.name === timer.active.name)
             return <Button
                 type='active'
                 text={st.name}
@@ -71,14 +84,12 @@ function Timer() {
         timer.states.map((s) => s.isActive = false);
         const stateWithoutActive = timer.states.filter((s) => s.id !== st.id);
         const active = timer.states.filter((s) => s.id === st.id)[0];
-        const newStates = [...stateWithoutActive, {...active, isActive: true}].sort((a, b) => a.pos - b.pos);
-        return newStates;
+        const states = [...stateWithoutActive, {...active, isActive: true}].sort((a, b) => a.pos - b.pos);
+        return [states, active];
     }
-   
+
 
     // Counter functionality
-    let currentActive =  timer.states.filter((st) => st.isActive === true)[0];
-
     const msConverter = (min = 0, sec = 0) => {
         const milliseconds = (min* 1000 * 60) + (sec * 1000);
         return milliseconds;
@@ -106,13 +117,13 @@ function Timer() {
             const clockID = setInterval(() => {
                 const endDate = currentTime + timer.timeLeftInMs;
                 timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate) }});
-            }, 1000);
+            }, 950);
             setIntervalID(clockID);
         }
         if (!timer.isCounting && !timer.isStartedBefore) {
             clearInterval(intervalID);
             timerDispatch({ type: 'START-TIMER' });
-            const currentLength = currentActive.length;
+            const currentLength = timer.active.length;
             const clockID = setInterval(() => {
                 const endDate = currentTime + msConverter(currentLength) + 1000;
                 timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate) }});
@@ -133,18 +144,20 @@ function Timer() {
 
         
         const changeActive = () => {
-            if (currentActive.name === 'Pomodoro') {
+            if (timer.active.name === 'Pomodoro') {
                 if (timer.longBreakInterval - 1 > timer.currentInterval) {
                     return { 
                         interval: timer.currentInterval + 1,
-                        states: changeState(shortBreak),
+                        states: changeState(shortBreak)[0],
+                        active: changeState(shortBreak)[1],
                         timeLeft: shortBreak.length + ':00',
                     }
                 }
                 else {
                     return {
                         interval: 0,
-                        states: changeState(longBreak),
+                        states: changeState(longBreak)[0],
+                        active: changeState(longBreak)[1],
                         timeLeft: longBreak.length + ':00',
                     }
                 }
@@ -152,13 +165,14 @@ function Timer() {
             else {
                 return {
                     interval: timer.currentInterval,
-                    states: changeState(pomodoro),
+                    states: changeState(pomodoro)[0],
+                    active: changeState(pomodoro)[1],
                     timeLeft: pomodoro.length + ':00'
                 }
             }
         }
-        const {interval, states, timeLeft} = changeActive();
-        console.log(interval, states, timeLeft);
+        const {interval, states, active, timeLeft} = changeActive();
+        console.log(interval, states, active, timeLeft);
 
         timerDispatch
             ({  
@@ -166,6 +180,7 @@ function Timer() {
                 payload: {
                     interval: interval,
                     states: states,
+                    active: active,
                     timeLeft: timeLeft
                 }
             });
@@ -194,7 +209,7 @@ function Timer() {
 
 
     // Web Title
-    window.document.title = `${timer.timeLeft} - ${timer.activeState}`;
+    window.document.title = `${timer.timeLeft} - pmdr`;
     return (
         <StyledTimer className='Timer'>
             <Popup 

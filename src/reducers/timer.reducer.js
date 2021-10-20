@@ -24,6 +24,7 @@ const timerReducer = (state, action) => {
                 timeLeft: action.payload.timeLeft,
                 timeLeftInMs: '',
                 currentInterval: action.payload.interval,
+                active: action.payload.active,
                 states: action.payload.states
             });
         case 'OPEN-SETTINGS':
@@ -35,16 +36,26 @@ const timerReducer = (state, action) => {
         case 'AUTO-START-POMODOROS':
             return ({...state, autoStartPomodoro: !state.autoStartPomodoro});
         case 'CHANGE-ACTIVE-STATE':
-            return ({...state, states: action.payload.newStates});
+            return ({...state,
+                isCounting: false,
+                isStartedBefore: false,
+                states: action.payload.states,
+                active: action.payload.active,
+                timeLeft: action.payload.timeLeft,
+            });
         case 'SAVE-SETTINGS':
             return ({
                 ...state,
-                pomodoroLength: parseInt(action.payload.inputs.pomodoro),
-                shortBreakLength: parseInt(action.payload.inputs.shortBreak),
-                longBreakLength: parseInt(action.payload.inputs.longBreak),
+                isCounting: false,
+                isStartedBefore: false,
+                states: [
+                    {...state.states[0], length: action.payload.inputs.pomodoro},
+                    {...state.states[1], length: action.payload.inputs.shortBreak},
+                    {...state.states[2], length: action.payload.inputs.longBreak}
+                ],
                 longBreakInterval: parseInt(action.payload.inputs.longBreakInterval),
-                timeLeft: action.payload.inputs.pomodoro + ':00',
-                timeLeftInMs: action.payload.inputs.pomodoro * 1000 * 60,
+                timeLeft: action.payload.timeLeft + ':00',
+                active: {...state.active, length: action.payload.timeLeft},
                 isSettingsDisplayed: false
             });
         default:

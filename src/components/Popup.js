@@ -8,13 +8,20 @@ import { TimerContext } from '../context/timer.context';
 function Popup(props) {
     const { timer } = useContext(TimerContext);
 
+    // Selecting timer states
+    const pomodoro = timer.states.filter((st) => st.name === 'Pomodoro')[0];
+    const shortBreak = timer.states.filter((st) => st.name === 'Break')[0];
+    const longBreak = timer.states.filter((st) => st.name === 'Long Break')[0];
+    
+
     // Input states
     const [inputs, setInputs] = useState({
-        pomodoro: timer.pomodoroLength,
-        shortBreak: timer.shortBreakLength,
-        longBreak: timer.longBreakLength,
-        longBreakInterval: timer.longBreakInterval
+        pomodoro: pomodoro.length,
+        shortBreak: shortBreak.length,
+        longBreak: longBreak.length,
+        longBreakInterval: timer.longBreakInterval,
     });
+
     const handleInputChange = (e) => {
         setInputs(prevState => ({ ...prevState, [e.target.name]: e.target.value }))
     };
