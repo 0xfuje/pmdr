@@ -13,18 +13,16 @@ import Tasks from './components/Tasks';
 
 function Main() {
   return (
-    <>
     <TimerProvider>
-    <Header />
-    <Container>
-      <Timer />
     <TasksProvider>
-      <CurrentTask />
-      <Tasks  />
+      <Header />
+      <Container>
+        <Timer />
+        <CurrentTask />
+        <Tasks  />
+      </Container>
     </TasksProvider>
-    </Container>
     </TimerProvider>
-    </>
   )
 }
 

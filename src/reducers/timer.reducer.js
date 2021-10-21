@@ -26,7 +26,8 @@ const timerReducer = (state, action) => {
                 timeLeftInMs: '',
                 currentInterval: action.payload.interval,
                 active: action.payload.active,
-                states: action.payload.states
+                states: action.payload.states,
+                percentage: action.payload.percentage,
             });
         case 'OPEN-SETTINGS':
             return ({...state, isSettingsDisplayed: true});
@@ -43,6 +44,7 @@ const timerReducer = (state, action) => {
                 states: action.payload.states,
                 active: action.payload.active,
                 timeLeft: action.payload.timeLeft,
+                percentage: 0
             });
         case 'SAVE-SETTINGS':
             return ({

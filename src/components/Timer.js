@@ -9,13 +9,16 @@ import GiantButton from './buttons/GiantButton';
 import FinishButton from './buttons/FinishButton';
 
 import birdChirp from '../audios/european-robin.mp3';
+import buttonClick from '../audios/button-click.mp3';
 
 import { TimerContext } from '../context/timer.context';
+import { TasksContext } from '../context/tasks.context';
 import { MyThemeContext } from '../Theme';
 
 function Timer() {
     const { theme, setTheme, changeTheme } = useContext(MyThemeContext);
     const { timer, timerDispatch } = useContext(TimerContext);
+    const {tasks} = useContext(TasksContext);
     const [intervalID, setIntervalID] = useState();
 
     // Passed down functions
@@ -56,6 +59,7 @@ function Timer() {
         timerDispatch({ type: 'OPEN-SETTINGS' });
     }
     const handleStartClick = () => {
+        playButtonClick();
         startCount();
     }
     const handleFinishClick = () => {
@@ -189,7 +193,8 @@ function Timer() {
                     interval: interval,
                     states: states,
                     active: active,
-                    timeLeft: timeLeft
+                    timeLeft: timeLeft,
+                    percentage: 100,
                 }
             });
         if (theme.colors.main.active === 'blue') setTheme(changeTheme('red'));
@@ -199,25 +204,41 @@ function Timer() {
     
 
     // Working with audio
-    const audioCtx = new AudioContext();
-    let audio;
+    // this function plays the sound provided by ctx and audio for specified length
+    const playSound = (ctx, audio, length) => {
+        const playSound = ctx.createBufferSource();
+        playSound.buffer = audio;
+        playSound.connect(ctx.destination);
+        playSound.start(0);
+        playSound.stop(ctx.currentTime + length);
+    }
+
+    // Fetching birdchirp sound
+    const birdChirpCtx = new AudioContext();
+    let birdChirpAudio;
     fetch(birdChirp)
         .then(data => data.arrayBuffer())
-        .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
-        .then(decodedAudio => {audio = decodedAudio})
+        .then(arrayBuffer => birdChirpCtx.decodeAudioData(arrayBuffer))
+        .then(decodedAudio => {birdChirpAudio = decodedAudio})
         .catch(err => console.error('ERROR: ' + err));
 
-    const playBirdChirp = () => {
-        const playSound = audioCtx.createBufferSource();
-        playSound.buffer = audio;
-        playSound.connect(audioCtx.destination);
-        playSound.start(0);
-        playSound.stop(audioCtx.currentTime + 3);
-    }
+   
+
+    // Fetching button click sound
+    const buttonClickCtx = new AudioContext();
+    let buttonClickAudio;
+    fetch(buttonClick)
+        .then(data => data.arrayBuffer())
+        .then(arrayBuffer => buttonClickCtx.decodeAudioData(arrayBuffer))
+        .then(decodedAudio => {buttonClickAudio = decodedAudio})
+        .catch(err => console.error('ERROR: ' + err));
+
+    const playBirdChirp = () => playSound(birdChirpCtx, birdChirpAudio, 3);
+    const playButtonClick = () => playSound(buttonClickCtx, buttonClickAudio, 0.5);
 
 
     // Web Title
-    window.document.title = `${timer.timeLeft} - pmdr`;
+    window.document.title = `${timer.timeLeft} - ${tasks.filter((t) => (t.isActive))[0].title || 'pmdr'}`;
     return (
         <StyledTimer className='Timer'>
             <Popup 
