@@ -108,6 +108,12 @@ function Timer() {
         return timeLeft;
     }
 
+    const tickPercent = (current) => {
+        const start = msConverter(timer.active.length);
+        const percent = (1 - (current / start)) * 100;
+        return percent.toFixed(2);
+    }
+
     const startCount = () => {
         clearInterval(intervalID);
         const currentTime = new Date().getTime();
@@ -116,7 +122,8 @@ function Timer() {
             timerDispatch({ type: 'RESUME-TIMER' });
             const clockID = setInterval(() => {
                 const endDate = currentTime + timer.timeLeftInMs;
-                timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate) }});
+                const percentage = tickPercent(tick(endDate));
+                timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate), percentage: percentage }});
             }, 950);
             setIntervalID(clockID);
         }
@@ -126,8 +133,9 @@ function Timer() {
             const currentLength = timer.active.length;
             const clockID = setInterval(() => {
                 const endDate = currentTime + msConverter(currentLength) + 1000;
-                timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate) }});
-            }, 1000);
+                const percentage = tickPercent(tick(endDate));
+                timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate), percentage: percentage }});
+            }, 950);
             setIntervalID(clockID);
         }
         if (timer.isCounting) {

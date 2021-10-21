@@ -11,7 +11,8 @@ const timerReducer = (state, action) => {
             return ({
                 ...state,
                 timeLeft: action.payload.time,
-                timeLeftInMs: action.payload.timeInMs
+                timeLeftInMs: action.payload.timeInMs,
+                percentage: action.payload.percentage
             });
         case 'STOP-TIMER':
             console.log('stop');

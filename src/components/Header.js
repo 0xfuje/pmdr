@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyledHeader } from './styled/StyledHeader';
 import Button from './buttons/Button';
-import { StyledProgressLine } from './styled/StyledProgressLine';
+import ProgressLine from './ProgressLine';
 import { NavLink } from 'react-router-dom';
 
 function Header() {
@@ -23,8 +23,9 @@ function Header() {
                         </li>
                 </ul>
             </div> */}
+        
         </StyledHeader>
-        <StyledProgressLine />
+        <ProgressLine/>
         </>
     )
 }

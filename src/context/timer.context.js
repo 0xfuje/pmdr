@@ -14,7 +14,7 @@ const defTimer = {
     timeLeft: '25:00',
     timeLeftInMs: '',
     timeFullInMs: '',
-    timePassedPercent: '',
+    percentage: 0,
     active: {name: 'Pomodoro', pos: 0,  length: 25, color: 'red', id: nanoid(), isActive: true},
     states: [
         {name: 'Pomodoro', pos: 0,  length: 25, color: 'red', id: nanoid(), isActive: true},
