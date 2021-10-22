@@ -73,6 +73,7 @@ function Popup(props) {
                     </div>
                 </div>
                 <div className="Popup-button">
+                    <p className='Popup-button-alert'>Saving will reset the Timer</p>
                     <Button type='dark' text='Save' onClick={() => handleSave(inputs)}/>
                 </div>
             </div>

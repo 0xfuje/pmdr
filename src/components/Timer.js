@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyledTimer } from "./styled/StyledTimer";
 
 import Clock from './Clock';
@@ -18,7 +18,7 @@ import { MyThemeContext } from '../Theme';
 function Timer() {
     const { theme, setTheme, changeTheme } = useContext(MyThemeContext);
     const { timer, timerDispatch } = useContext(TimerContext);
-    const {tasks} = useContext(TasksContext);
+    const { tasks, taskDispatch } = useContext(TasksContext);
     const [intervalID, setIntervalID] = useState();
 
     // Passed down functions
@@ -44,16 +44,12 @@ function Timer() {
 
     // Handlers
     const handleButtonClick = (st) => {
-        clearInterval(intervalID);
-        timerDispatch({ type: 'CHANGE-ACTIVE-STATE', 
-        payload:
-            { 
-                states: changeState(st)[0],
-                timeLeft: st.length + ':00',
-                active: changeState(st)[1],
-            }
-        })
-        setTheme(changeTheme(st.color));
+        if (timer.isCounting) {
+            if (!window.confirm('Timer is running, are you sure about switching?'))  return;
+            changeActive(st);
+        }
+        changeActive(st);
+        
     }
     const handleSettingsClick = () => {
         timerDispatch({ type: 'OPEN-SETTINGS' });
@@ -65,7 +61,6 @@ function Timer() {
     const handleFinishClick = () => {
         finishCount();
     }
-
 
     // Display variables
     const displayButtons = timer.states.map((st) => {
@@ -82,8 +77,30 @@ function Timer() {
             onClick={() => handleButtonClick(st)}/>
     });
 
+    // Helper functions
+    // Theme color change function helper
+    const changeColor = () => {
+        if (theme.colors.main.active === 'blue') setTheme(changeTheme('red'));
+        if (theme.colors.main.active === 'red') setTheme(changeTheme('blue'));
+    }
+    
+    // Change active helper on button helper
+    const changeActive = (st) => {
+        clearInterval(intervalID);
+        timerDispatch({ type: 'CHANGE-ACTIVE-STATE', 
+        payload:
+            { 
+                states: changeState(st)[0],
+                timeLeft: st.length.toString().padStart(2, 0) + ':00',
+                active: changeState(st)[1],
+            }
+        })
+        setTheme(changeTheme(st.color));
+    }
+    
+    //
 
-    // State Change helper function
+    // State change helper
     const changeState = (st) => {
         timer.states.map((s) => s.isActive = false);
         const stateWithoutActive = timer.states.filter((s) => s.id !== st.id);
@@ -121,23 +138,32 @@ function Timer() {
     const startCount = () => {
         clearInterval(intervalID);
         const currentTime = new Date().getTime();
+        
+
+        // DONT REPEAT YOURSELF!! FIX LATER!
         if (!timer.isCounting && timer.isStartedBefore) {
-            clearInterval(intervalID);
             timerDispatch({ type: 'RESUME-TIMER' });
             const clockID = setInterval(() => {
                 const endDate = currentTime + timer.timeLeftInMs;
                 const percentage = tickPercent(tick(endDate));
+                if (tick(endDate) < 1000) {
+                    finishCount();
+                    playBirdChirp();
+                    return clearInterval(clockID)};
                 timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate), percentage: percentage }});
             }, 950);
             setIntervalID(clockID);
         }
         if (!timer.isCounting && !timer.isStartedBefore) {
-            clearInterval(intervalID);
             timerDispatch({ type: 'START-TIMER' });
-            const currentLength = timer.active.length;
             const clockID = setInterval(() => {
-                const endDate = currentTime + msConverter(currentLength) + 1000;
+                const endDate = currentTime + msConverter(timer.active.length);
                 const percentage = tickPercent(tick(endDate));
+                if (tick(endDate) < 1000) {
+                    finishCount();
+                    playBirdChirp();
+                    return clearInterval(clockID)
+                };
                 timerDispatch({ type: 'TICK', payload: { time: dateConverter(tick(endDate)), timeInMs: tick(endDate), percentage: percentage }});
             }, 950);
             setIntervalID(clockID);
@@ -147,6 +173,8 @@ function Timer() {
             timerDispatch({ type: 'STOP-TIMER'});
         };
     }
+        
+
 
     const finishCount = () => {
         clearInterval(intervalID);
@@ -194,23 +222,34 @@ function Timer() {
                     states: states,
                     active: active,
                     timeLeft: timeLeft,
-                    percentage: 100,
+                    percentage: 0,
                 }
             });
-        if (theme.colors.main.active === 'blue') setTheme(changeTheme('red'));
-        if (theme.colors.main.active === 'red') setTheme(changeTheme('blue'));
-        playBirdChirp();
+
+        if (timer.active.name === 'Pomodoro') {
+            const activeTask = tasks.filter((t) => t.isActive === true)[0];
+            taskDispatch({ 
+                type: 'ADD-TO-DONE',
+                payload: {
+                    id: activeTask.id,
+                    done: activeTask.done + 1
+                }
+            });
+        }
+        
+        changeColor();
     }
-    
+
+    console.log();
 
     // Working with audio
     // this function plays the sound provided by ctx and audio for specified length
-    const playSound = (ctx, audio, length) => {
+    const playSound = (ctx, audio, length = 0) => {
         const playSound = ctx.createBufferSource();
         playSound.buffer = audio;
         playSound.connect(ctx.destination);
         playSound.start(0);
-        playSound.stop(ctx.currentTime + length);
+        if (length !== 0) playSound.stop(ctx.currentTime + length);
     }
 
     // Fetching birdchirp sound
@@ -234,11 +273,12 @@ function Timer() {
         .catch(err => console.error('ERROR: ' + err));
 
     const playBirdChirp = () => playSound(birdChirpCtx, birdChirpAudio, 3);
-    const playButtonClick = () => playSound(buttonClickCtx, buttonClickAudio, 0.5);
+    const playButtonClick = () => playSound(buttonClickCtx, buttonClickAudio);
+
 
 
     // Web Title
-    window.document.title = `${timer.timeLeft} - ${tasks.filter((t) => (t.isActive))[0].title || 'pmdr'}`;
+    window.document.title = `${timer.timeLeft} - pmdr`;
     return (
         <StyledTimer className='Timer'>
             <Popup 

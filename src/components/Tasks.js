@@ -40,7 +40,6 @@ function Tasks() {
                 <Icon type='settings-white'/>
             </div>
             <div className="Tasks-line Tasks-line-1"></div>
-            
             {displayTasks}
             <WideCard type='action' text='Add a Task' onClick={handleAddClick}/>
             <div className="Tasks-line Tasks-line-2"></div>

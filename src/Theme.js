@@ -18,7 +18,8 @@ const colors = {
     blue: {
         light: '#457B9D',
         normal: '#395D74',
-        dark: '#1D3557'
+        hover: '#395774',
+        dark: '#324867'
     },
     monochrome: {
         light1: '#E9ECEF',

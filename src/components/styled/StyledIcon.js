@@ -8,6 +8,7 @@ export const StyledIcon = styled.i`
     cursor: pointer;
     height: 1.6rem;
     z-index: 10;
+    position: relative;
     width: ${(props) => (props.type === 'settings-white' || props.type === 'cross' || props.type === 'settings-cog')
         ? '1.6rem'
         : '2rem'};

@@ -51,13 +51,14 @@ const timerReducer = (state, action) => {
                 ...state,
                 isCounting: false,
                 isStartedBefore: false,
+                percentage: 0,
                 states: [
                     {...state.states[0], length: action.payload.inputs.pomodoro},
                     {...state.states[1], length: action.payload.inputs.shortBreak},
                     {...state.states[2], length: action.payload.inputs.longBreak}
                 ],
                 longBreakInterval: parseInt(action.payload.inputs.longBreakInterval),
-                timeLeft: action.payload.timeLeft + ':00',
+                timeLeft: action.payload.timeLeft.toString().padStart(2, 0) + ':00',
                 active: {...state.active, length: action.payload.timeLeft},
                 isSettingsDisplayed: false
             });

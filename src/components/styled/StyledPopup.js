@@ -97,7 +97,13 @@ export const StyledPopup = styled.div`
             background-color: ${({theme}) => theme.colors.mono.light2};
             border-radius: 0 0 0.2rem 0.2rem;
             display: flex;
-            justify-content: flex-end;
+            align-items: center;
+            justify-content: space-between;
+            &-alert {
+                font-size: ${({theme}) => theme.fontSizes.small};
+                font-weight: ${({theme}) => theme.fontWeights.medium};
+                color: ${({theme}) => theme.colors.mono.dark1};
+            }
         }
     }
 `;
