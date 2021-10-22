@@ -5,6 +5,7 @@ import Task from './Task';
 import Icon from './Icon';
 import TaskEdit from './TaskEdit';
 import WideCard from './WideCard';
+import TaskSettings from './TaskSettings';
 
 function Tasks() {
     const {tasks, taskDispatch} = useContext(TasksContext);
@@ -38,6 +39,7 @@ function Tasks() {
             <div className="Tasks-head">
                 <h2 className="Tasks-title">Tasks</h2>
                 <Icon type='settings-white'/>
+                <TaskSettings />
             </div>
             <div className="Tasks-line Tasks-line-1"></div>
             {displayTasks}

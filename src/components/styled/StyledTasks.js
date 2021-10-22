@@ -6,6 +6,7 @@ export const StyledTasks = styled.div`
         &-head {
             display: flex;
             justify-content: space-between;
+            position: relative;
         }
         &-title {
             color: ${({theme}) => theme.colors.mono.light1};

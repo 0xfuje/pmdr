@@ -236,11 +236,8 @@ function Timer() {
                 }
             });
         }
-        
         changeColor();
     }
-
-    console.log();
 
     // Working with audio
     // this function plays the sound provided by ctx and audio for specified length
