@@ -8,12 +8,14 @@ import WideCard from './WideCard';
 import TaskSettings from './TaskSettings';
 
 function Tasks() {
-    const {tasks, taskDispatch} = useContext(TasksContext);
+    const {tasks, taskDispatch, isSettingsDisplayed, setIsSettingsDisplayed} = useContext(TasksContext);
     
     const handleAddClick = () => {
         taskDispatch({ type: 'ADD' });
     }
-    
+    const handleSettingsClick = () => {
+        setIsSettingsDisplayed(!isSettingsDisplayed);
+    }
     
     const displayTasks = tasks.map((t) => {
         if (t.isEdited) return <TaskEdit
@@ -38,7 +40,7 @@ function Tasks() {
         <StyledTasks className='Tasks'>
             <div className="Tasks-head">
                 <h2 className="Tasks-title">Tasks</h2>
-                <Icon type='settings-white'/>
+                <Icon type='settings-white' onClick={handleSettingsClick}/>
                 <TaskSettings />
             </div>
             <div className="Tasks-line Tasks-line-1"></div>

@@ -1,4 +1,4 @@
-import styled, { ThemeContext } from "styled-components";
+import styled from "styled-components";
 
 
 export const StyledIcon = styled.i`
@@ -42,8 +42,12 @@ export const StyledIcon = styled.i`
     }
     .Icon {
         &-image {
-            height: 0.875rem;
-            width: 0.875rem;
+            height: ${(props) => props.size === 'small' 
+            ? '.5rem' 
+            : '.875rem'};
+            width: ${(props) => props.size === 'small' 
+            ? '.5rem' 
+            : '.875rem'};
         };
             
     }

@@ -3,7 +3,8 @@ import { StyledTaskSettings } from './styled/StyledTaskSettings';
 import { TasksContext } from '../context/tasks.context';
 
 function TaskSettings() {
-    const { taskDispatch } = useContext(TasksContext);
+    const { taskDispatch, isSettingsDisplayed, setIsSettingsDisplayed } = useContext(TasksContext);
+
     const handleOptionClick = (e) => {
         if (e.target.value === 'clear-finished') {
             taskDispatch({ type: 'CLEAR-FINISHED' });
@@ -14,9 +15,10 @@ function TaskSettings() {
         if (e.target.value === 'clear-all') {
             taskDispatch({ type: 'CLEAR-ALL' });
         }
+        setIsSettingsDisplayed(false);
     }
     return (
-        <StyledTaskSettings className='TaskSettings' display={true}>
+        <StyledTaskSettings className='TaskSettings' display={isSettingsDisplayed}>
             <option className='TaskSettings-option TaskSettings-option-1'
                 onClick={handleOptionClick} value="clear-finished">Clear Finished Tasks</option>
             <option className='TaskSettings-option TaskSettings-option-2'

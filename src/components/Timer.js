@@ -226,8 +226,8 @@ function Timer() {
                 }
             });
 
-        if (timer.active.name === 'Pomodoro') {
-            const activeTask = tasks.filter((t) => t.isActive === true)[0];
+        const activeTask = tasks.filter((t) => t.isActive === true)[0];
+        if (timer.active.name === 'Pomodoro' && tasks.includes(activeTask)) {
             taskDispatch({ 
                 type: 'ADD-TO-DONE',
                 payload: {

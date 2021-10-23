@@ -1,4 +1,4 @@
-import React, {createContext, useReducer} from 'react';
+import React, {createContext, useReducer, useState} from 'react';
 import { nanoid } from 'nanoid';
 import tasksReducer from '../reducers/tasks.reducer';
 
@@ -11,12 +11,14 @@ const defTasks = [
 
 
 
+
 export const TasksContext = createContext();
 
 export function TasksProvider(props) {
     const [tasks, taskDispatch] = useReducer(tasksReducer, defTasks);
+    const [isSettingsDisplayed, setIsSettingsDisplayed] = useState(false);
     return (
-        <TasksContext.Provider value={{tasks, taskDispatch}}>
+        <TasksContext.Provider value={{tasks, taskDispatch, isSettingsDisplayed, setIsSettingsDisplayed}}>
             {props.children}
         </TasksContext.Provider>
     );

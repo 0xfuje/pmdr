@@ -10,7 +10,8 @@ const tasksReducer = (state, action) => {
             const active = {
                 ...state.filter((t) => t.id === action.payload.id)[0],
                 done: action.payload.done};
-            return [...state.filter((t) => t.id !== action.payload.id), active].sort((a, b) => a.pos - b.pos);
+            if (action.payload.id) return [...state.filter((t) => t.id !== action.payload.id), active].sort((a, b) => a.pos - b.pos);
+            else return state;
         case 'TOGGLE-CHECK':
             console.log('toggle-check');
             state.map((t) => t.isActive = false);
@@ -33,14 +34,12 @@ const tasksReducer = (state, action) => {
             return [...state.filter((t) => t.id !== action.payload.id), taskToEdit].sort((a, b) => a.pos - b.pos);
         case 'DELETE':
             return state.filter((t) => t.id !== action.payload.id);
-        case 'TOGGLE-SETTINGS':
-            return state;
         case 'CLEAR-FINISHED':
             console.log('clear finished');
-            return state;
+            return state.filter((t) => (!t.isChecked));
         case 'CLEAR-POMODOROS':
             console.log('clear pomodoros');
-            return state;
+            return state.map((t) => ({...t, done: 0}));
         case 'CLEAR-ALL':
             console.log('clear all');
             return [];
