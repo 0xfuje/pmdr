@@ -1,4 +1,4 @@
-import React, {createContext, useReducer} from 'react';
+import React, {createContext, useReducer, useEffect} from 'react';
 import timerReducer from '../reducers/timer.reducer';
 import { nanoid } from 'nanoid';
 
@@ -28,7 +28,13 @@ const defTimer = {
 export const TimerContext = createContext();
 
 export function TimerProvider(props) {
-    const [timer, timerDispatch] = useReducer(timerReducer, defTimer)
+    const [timer, timerDispatch] = useReducer(timerReducer, defTimer, () => {
+        const localData = localStorage.getItem('timer');
+        return localData ? JSON.parse(localData) : [];
+    });
+    useEffect(() => {
+        localStorage.setItem('timer', JSON.stringify(timer));
+    }, [timer]);
     return (
         <TimerContext.Provider value={{timer, timerDispatch}}>
             {props.children}

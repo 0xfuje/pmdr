@@ -237,6 +237,7 @@ function Timer() {
             });
         }
         changeColor();
+        playBirdChirp();
     }
 
     // Working with audio
