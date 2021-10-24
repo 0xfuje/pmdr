@@ -63,19 +63,22 @@ function Timer() {
     }
 
     // Display variables
-    const displayButtons = timer.states.map((st) => {
-        if (st.name === timer.active.name)
+    const displayButtons = timer.states && timer.states.map((st) => {
+        if (st.name === timer.active.name) {
             return <Button
-                type='active'
-                text={st.name}
-                key={st.id}
-                onClick={() => handleButtonClick(st)}/>
+            type='active'
+            text={st.name}
+            key={st.id}
+            onClick={() => handleButtonClick(st)}/>
+        }
         return <Button
             type='normal'
             text={st.name}
             key={st.id}
             onClick={() => handleButtonClick(st)}/>
     });
+     
+
 
     // Helper functions
     // Theme color change function helper
@@ -238,6 +241,8 @@ function Timer() {
         }
         changeColor();
         playBirdChirp();
+        
+        
     }
 
     // Working with audio

@@ -9,17 +9,17 @@ function Popup(props) {
     const { timer } = useContext(TimerContext);
 
     // Selecting timer states
-    const pomodoro = timer.states.filter((st) => st.name === 'Pomodoro')[0];
-    const shortBreak = timer.states.filter((st) => st.name === 'Break')[0];
-    const longBreak = timer.states.filter((st) => st.name === 'Long Break')[0];
+    const pomodoro = timer.states && timer.states.filter((st) => st.name === 'Pomodoro')[0];
+    const shortBreak = timer.states && timer.states.filter((st) => st.name === 'Break')[0];
+    const longBreak = timer.states && timer.states.filter((st) => st.name === 'Long Break')[0];
     
 
     // Input states
     const [inputs, setInputs] = useState({
-        pomodoro: pomodoro.length,
-        shortBreak: shortBreak.length,
-        longBreak: longBreak.length,
-        longBreakInterval: timer.longBreakInterval,
+        pomodoro: pomodoro?.length,
+        shortBreak: shortBreak?.length,
+        longBreak: longBreak?.length,
+        longBreakInterval: timer?.longBreakInterval,
     });
 
     const handleInputChange = (e) => {
@@ -30,9 +30,10 @@ function Popup(props) {
     const handleSave = (inputs) => props.save(inputs);
     const handleClose = () => props.close();
     
+    const display = (timer.isSettingsDisplayed) ? true : false;
     
     return (
-        <StyledPopup className='Popup' display={(timer.isSettingsDisplayed) ? true : false}>
+        <StyledPopup className='Popup' display={display}>
             <div className="Popup-window">
                 <div className="Popup-head">
                     <h2 className="Popup-title">Timer Settings</h2>

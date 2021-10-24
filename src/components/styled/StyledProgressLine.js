@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledProgressLine = styled.div`
-    ${console.log((props) => props.width)};
     background-color: ${({theme}) => theme.colors.main.dark};
     height: 5px;
     margin: 0 auto;

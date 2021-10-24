@@ -30,7 +30,7 @@ export const TimerContext = createContext();
 export function TimerProvider(props) {
     const [timer, timerDispatch] = useReducer(timerReducer, defTimer, () => {
         const localData = localStorage.getItem('timer');
-        return localData ? JSON.parse(localData) : [];
+        return localData ? JSON.parse(localData) : defTimer;
     });
     useEffect(() => {
         localStorage.setItem('timer', JSON.stringify(timer));

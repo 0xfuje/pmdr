@@ -1,10 +1,8 @@
 const timerReducer = (state, action) => {
     switch(action.type) {
         case 'START-TIMER':
-            console.log('start');
             return ({...state, isCounting: true, isStartedBefore: true});
         case 'RESUME-TIMER':
-            console.log('resume');
             return ({...state, isCounting: true });
         case 'TICK':
             console.log(action.payload.time);
@@ -15,10 +13,8 @@ const timerReducer = (state, action) => {
                 percentage: action.payload.percentage
             });
         case 'STOP-TIMER':
-            console.log('stop');
             return ({...state, isCounting: false});
         case 'FINISH-TIMER':
-            console.log('finish');
             return ({...state,
                 isCounting: false,
                 isStartedBefore: false,

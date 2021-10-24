@@ -1,4 +1,4 @@
-import React, {useContext, useReducer} from 'react';
+import React, {useContext} from 'react';
 import { TasksContext } from '../context/tasks.context';
 import {StyledTasks} from './styled/StyledTasks';
 import Task from './Task';

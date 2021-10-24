@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyledHeader } from './styled/StyledHeader';
-import Button from './buttons/Button';
 import ProgressLine from './ProgressLine';
-import { NavLink } from 'react-router-dom';
 
 function Header() {
     return (
